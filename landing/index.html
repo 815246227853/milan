@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Milan: your wedding, beautifully in sync</title>
 <!-- Where the Milan app runs. Empty = same site (the app server serves this page at /). Set it when this page is hosted on its own, e.g. on Vercel. -->
-<meta name="milan-app-url" content="">
+<meta name="milan-app-url" content="https://arrivals-artificial-modeling-egg.trycloudflare.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&amp;family=Jost:wght@300;400;500&amp;family=Great+Vibes&amp;display=swap" rel="stylesheet">
@@ -505,16 +505,16 @@ h1 em,h2 em{color:var(--rose);font-weight:400}
 </footer>
 </div>
 <script>
-// "Get started" buttons: new families go to the setup questions; once a wedding is set up, straight to the dashboard.
+// "Plan my wedding": first-time families go to the setup conversation (/start); once a wedding is set up, straight to the dashboard (/app).
+// On a static host (e.g. Vercel) set <meta name="milan-app-url"> to where the Milan app runs, so the buttons open the live app.
 (function(){
   var base=((document.querySelector('meta[name="milan-app-url"]')||{}).content||'').replace(/\/$/,'');
   var links=document.querySelectorAll('[data-app]');
   links.forEach(function(a){a.href=base+'/start';});
-  if(base||location.protocol==='file:') return;
-  fetch('/api/state').then(function(r){return r.ok?r.json():null;}).then(function(s){
+  fetch(base+'/api/state',{mode:'cors'}).then(function(r){return r.ok?r.json():null;}).then(function(s){
     if(!s||!s.setup) return;
-    links.forEach(function(a){a.href='/';});
-    var nav=document.querySelector('nav [data-app], .btn.ghost[data-app]'); if(nav) nav.textContent='Open dashboard';
+    links.forEach(function(a){a.href=base+'/app';});
+    var nav=document.querySelector('nav [data-app]'); if(nav) nav.textContent='Open dashboard';
   }).catch(function(){});
 })();
 </script>
