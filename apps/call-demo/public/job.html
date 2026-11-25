@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Milan · Job</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Same look as apps/landing: cream paper, olive green, saffron, Cormorant Garamond + Jost */
+:root{--paper:#F3EAD3;--card:#FBF7EC;--ink:#3E2E1F;--ink2:#5E4D3B;--muted:#7A6A57;--line:#E2D1AC;--line2:#D3BE95;--olive:#8C2F45;--olive2:#7A2639;--olive-soft:#F6E1E4;--saffron:#E8A33D;--saffron-soft:#FBEBD0;--rust:#B8651E;--rose:#F6D9D2;--bad:#9A3B2A;--bad-soft:#F6DDD5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);font-family:Jost,system-ui,sans-serif;color:var(--ink);font-size:15px;line-height:1.5;font-weight:400}
+a{color:var(--ink)}
+.serif{font-family:"Cormorant Garamond",Georgia,serif}
+.wrap{min-height:100vh;display:flex;flex-wrap:wrap}
+nav{flex:1 1 200px;max-width:232px;padding:26px 16px;border-right:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:4px}
+.brand{margin:0;font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:30px;padding:0 12px 22px;letter-spacing:.02em}
+.brand em{color:var(--olive);font-style:italic}
+.nav{display:block;padding:10px 14px;border-radius:999px;color:var(--ink2);text-decoration:none;font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+.nav:hover{background:var(--paper)}
+.nav.on{background:var(--olive-soft);color:var(--olive2);font-weight:500}
+main{flex:999 1 560px;min-width:0;padding:32px 40px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.col{flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:18px}
+aside.side{flex:1 1 340px;max-width:440px;display:flex;flex-direction:column;gap:14px}
+h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:40px;line-height:1.1;margin:6px 0 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:0 1px 0 rgba(46,42,37,.03)}
+.card-title{margin:0 0 10px;font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;font-weight:500}
+.h,.cap{font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.22em;margin:0}
+.tag{display:inline-flex;align-items:center;height:24px;padding:0 11px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:12px;font-weight:500;color:var(--ink2);white-space:nowrap}
+.tag.dark{background:var(--olive);border-color:var(--olive);color:var(--paper)}
+.tag.live{background:var(--olive-soft);border-color:#CBD5BD;color:var(--olive2)}
+.tag.warn{background:var(--saffron-soft);border-color:#F1D3A0;color:var(--rust)}
+.tag.bad{background:var(--bad-soft);border-color:#EDC3B7;color:var(--bad)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 22px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--ink);font-family:Jost,system-ui,sans-serif;font-weight:500;font-size:12px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background .3s}
+.btn:hover{transform:translateY(-1px);border-color:var(--olive)}
+.btn.pri{background:var(--olive);border-color:var(--olive);color:var(--paper)}
+.btn.pri:hover{background:var(--olive2);box-shadow:0 12px 26px rgba(86,100,74,.25)}
+.btn.big{height:50px;padding:0 24px}
+.btn:disabled{opacity:.5;cursor:default;transform:none}
+.btn:focus-visible{outline:2px solid var(--saffron);outline-offset:2px}
+.step{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.step:first-of-type{border-top:0}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-size:11px;color:var(--muted);font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:8px 10px;border-bottom:1px solid var(--line)}
+.tbl td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr.rec td{background:#F7F9F2}
+.muted{color:var(--muted)}
+.bubble{align-self:flex-end;max-width:80%;background:var(--olive);color:var(--paper);border-radius:18px 18px 4px 18px;padding:12px 18px}
+.line{padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.line:first-child{border-top:0}
+.who{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.16em}
+.en{color:var(--muted);font-style:italic;margin-top:2px}
+.linkrow{display:flex;gap:8px;margin-top:10px;align-items:center}
+.linkrow span{font-size:13px;font-weight:500;width:84px;flex:none}
+.linkrow input{flex:1;min-width:0;height:36px;padding:0 12px;border:1px solid var(--line2);border-radius:999px;font:inherit;font-size:12px;background:var(--paper);color:var(--ink)}
+.linkrow .btn{height:36px;padding:0 14px;font-size:11px}
+textarea{width:100%;min-height:76px;padding:14px 16px;border:1px solid var(--line2);border-radius:14px;font:inherit;resize:vertical;background:var(--paper);color:var(--ink)}
+textarea:focus,input:focus{outline:2px solid var(--olive-soft);border-color:var(--olive)}
+.reply{display:flex;gap:10px;align-items:center}
+.reply input{flex:1;height:50px;padding:0 18px;border:1px solid var(--line2);border-radius:999px;font:inherit;min-width:0;background:var(--card)}
+.banner{background:var(--bad-soft);border:1px solid #EDC3B7;color:var(--bad);border-radius:14px;padding:12px 16px;font-weight:500}
+.reco{margin:14px 0 0;padding:14px 16px;border-radius:14px;background:var(--olive-soft);color:var(--olive2)}
+.reco b{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;font-weight:600;display:block;color:var(--ink)}
+.cost{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line)}
+.cost:first-child{border-top:0}
+.rule{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;padding:5px 0}
+.rule code{font-size:11px}
+.feed{list-style:none;margin:0;padding:0}
+.feed li{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.feed li:first-child{border-top:0}
+.feed time{flex:none;width:44px;color:var(--muted);font-size:12px;padding-top:2px}
+.feed .dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--line2);margin-top:7px}
+.feed .good .dot{background:var(--olive)}.feed .ask .dot{background:var(--saffron)}.feed .warn .dot{background:var(--bad)}
+.feed .good span:last-child{font-weight:500}
+.linkbtn{background:none;border:0;padding:0;font:inherit;font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:var(--olive2)}
+.hidden{display:none!important}
+.scrim{position:fixed;inset:0;background:rgba(46,42,37,.35);z-index:10;animation:fade .25s}
+.sheet{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--card);box-shadow:-12px 0 40px rgba(46,42,37,.18);display:flex;flex-direction:column;z-index:11;animation:slide .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes slide{from{transform:translateX(40px);opacity:0}}@keyframes fade{from{opacity:0}}
+.sheet-head{padding:26px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.sheet-head h1{font-size:32px}
+.sheet-body{flex:1;overflow:auto;padding:22px 28px;display:flex;flex-direction:column;gap:22px}
+.sheet-foot{padding:16px 28px 26px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.sheet .line2{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.flagnote{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:var(--saffron-soft);color:#7A4A14;font-size:14px}
+.close{display:inline-flex;width:40px;height:40px;align-items:center;justify-content:center;border-radius:999px;font-size:22px;color:var(--ink2);background:none;border:1px solid var(--line);cursor:pointer}
+@media (max-width:640px){nav{flex-direction:row;max-width:none;flex-basis:100%;padding:12px;border-right:0;border-bottom:1px solid var(--line);align-items:center;overflow-x:auto}.brand{padding:0 12px 0 4px;font-size:24px}main{padding:16px}h1{font-size:32px}.sheet-head,.sheet-body,.sheet-foot{padding-left:16px;padding-right:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <p class="brand">Mil<em>a</em>n</p>
+  <a class="nav on" href="/">Jobs</a><a class="nav" href="/vendors">Vendors</a>
+</nav>
+<main>
+<section class="col">
+  <div>
+    <span class="muted" style="font-size:14px" id="wedLine"></span>
+    <h1 id="title">Give Milan a job</h1>
+  </div>
+
+  <div class="banner hidden" id="killBanner">Calls are paused. <code>calls_enabled</code> is off in Flagsmith, so Milan has stopped all calls. Turn it back on to continue.</div>
+
+  <!-- Job input -->
+  <div class="card" id="jobForm">
+    <p class="card-title">What should Milan do?</p>
+    <textarea id="jobText" placeholder="e.g. Find a veg caterer for 250 guests under ₹1,000 a plate"></textarea>
+    <div style="display:flex;gap:10px;margin-top:10px;align-items:center;flex-wrap:wrap">
+      <button class="btn pri" id="giveBtn">Give job</button>
+      <span class="muted" style="font-size:13px">Milan will call: <b id="vendorNames"></b></span>
+    </div>
+  </div>
+
+  <div class="bubble hidden" id="jobBubble"></div>
+
+  <div class="card hidden" id="planCard">
+    <p class="card-title">Milan's plan</p>
+    <div class="step"><span id="s1text">Pick the caterers from your vendor list</span><span class="tag" id="s1">Done</span></div>
+    <div class="step"><span>Call each one in Hindi: price, date, menu, advance</span><span class="tag" id="s2"></span></div>
+    <div class="step"><span>Compare and recommend</span><span class="tag" id="s3"></span></div>
+    <div class="step"><span>Book, once you approve</span><span class="tag" id="s4"></span></div>
+  </div>
+
+  <div class="card hidden" id="compareCard">
+    <p class="card-title">What the caterers said</p>
+    <div style="overflow-x:auto">
+      <table class="tbl">
+        <thead><tr><th>Caterer</th><th>Per plate</th><th id="dateHead"></th><th>Includes</th><th>Advance</th></tr></thead>
+        <tbody id="compareRows"></tbody>
+      </table>
+    </div>
+    <div class="reco hidden" id="recoBox"><b id="recoTitle"></b><span id="recoText"></span><div class="muted" style="font-size:13px;margin-top:4px" id="recoOthers"></div></div>
+    <p style="margin:12px 0 0" class="muted" id="recoWait"></p>
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap" id="recoButtons">
+      <button class="btn pri" id="reviewBtn">Review and approve</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="doneCard"></div>
+
+  <!-- A change to the brief, e.g. "The guest count just went up to 300" -->
+  <div class="bubble hidden" id="changeBubble"></div>
+  <div class="card hidden" id="changeCard">
+    <p class="card-title" id="changeTitle"></p>
+    <div class="step"><span id="c1text"></span><span class="tag" id="c1"></span></div>
+    <div class="step"><span>Recalculate the cost</span><span class="tag" id="c2"></span></div>
+    <div class="step"><span>Check the rules: ask you if it's over budget</span><span class="tag" id="c3"></span></div>
+    <div id="changeCost" class="hidden" style="margin-top:12px;padding-top:4px;border-top:1px solid var(--line)"></div>
+    <p style="margin:10px 0 0" class="muted" id="changeText"></p>
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap" id="changeButtons">
+      <button class="btn pri" id="reviewChangeBtn">Review and approve</button>
+    </div>
+  </div>
+
+  <div class="reply hidden" id="replyBox">
+    <label for="reply" style="position:absolute;left:-9999px">Reply to Milan</label>
+    <input id="reply" placeholder="Reply to Milan, or change the brief">
+    <button class="btn big" id="sendBtn">Send</button>
+  </div>
+  <p class="muted hidden" style="margin:-8px 0 0;font-size:13px" id="replyHint">Try: “The guest count just went up to 300. Check what needs to change.”</p>
+
+  <div><button class="btn hidden" id="resetBtn">Start over</button></div>
+</section>
+
+<aside class="side">
+  <div class="card">
+    <p class="card-title" style="margin-bottom:6px">Activity</p>
+    <ul class="feed" id="feed"><li><span class="muted">Nothing yet. Give Milan a job.</span></li></ul>
+  </div>
+  <h2 class="h">Calls for this job</h2>
+  <div id="callCards"></div>
+
+  <div class="card">
+    <p class="card-title" style="margin-bottom:4px">Your phone link</p>
+    <p style="margin:0;font-size:14px" class="muted">Open this on your phone to answer as <b>Sharma Caterers</b>. Annapurna Foods and Gupta Caterers are practice vendors: they answer by themselves with scripted Sarvam voices.</p>
+    <div id="linkRows"></div>
+    <p style="margin:8px 0 0;font-size:13px" class="muted hidden" id="linkWarn">These are laptop-only links. Open this Job screen using your <b>https</b> tunnel link so the phone links work.</p>
+  </div>
+
+  <div class="card" style="background:var(--paper)">
+    <p class="card-title" style="margin-bottom:0">Rules for this job</p>
+    <p style="margin:6px 0 0;font-size:14px;color:var(--ink2)" id="rulesText"></p>
+    <div style="margin-top:8px" id="rulesList"></div>
+    <p style="margin:8px 0 0;font-size:13px;color:var(--muted)" id="rulesSource"></p>
+  </div>
+</aside>
+</main>
+</div>
+
+<!-- Approve side sheet -->
+<div class="scrim hidden" id="scrim"></div>
+<aside class="sheet hidden" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet-head">
+    <div><p class="h">Needs your approval</p><h1 id="sheetTitle"></h1></div>
+    <button class="close" id="closeSheet" aria-label="Close">×</button>
+  </div>
+  <div class="sheet-body">
+    <section><p class="h" style="margin-bottom:6px" id="sheetFoundHead"></p><p style="margin:0" id="sheetFound"></p></section>
+    <section><p class="h" style="margin-bottom:4px">Cost</p><div id="sheetCost"></div></section>
+    <section><p class="h" style="margin-bottom:6px">Why Milan asked you</p><div class="flagnote" id="sheetWhy"></div></section>
+    <section><p class="h" style="margin-bottom:6px">If you approve</p><p style="margin:0;color:var(--ink2)" id="sheetIf"></p></section>
+    <button class="linkbtn" style="align-self:flex-start" id="sheetListen"></button>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn pri big" id="approveBtn"></button>
+    <div style="display:flex;gap:10px"><button class="btn big" style="flex:1" id="cheaperBtn">Find a cheaper option</button><button class="btn big" style="flex:1" id="declineBtn">Decline</button></div>
+  </div>
+</aside>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const rupees = (n) => '₹' + Number(n).toLocaleString('en-IN');
+let S = null;              // latest state from the server
+let openTranscripts = {};  // which call cards have their transcript expanded
+let sheetFor = null;       // 'initial' | 'change' while the Approve sheet is open
+let autoOpened = {};       // decisions whose sheet already opened by itself
+let lastCallsKey = '';
+let lastLinksKey = '';
+
+async function api(method, url, body) {
+  const res = await fetch(url, { method, headers: { 'content-type': 'application/json' }, body: body ? JSON.stringify(body) : undefined });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Something went wrong');
+  return data;
+}
+
+function tag(text, kind = '') { return `<span class="tag${kind ? ' ' + kind : ''}">${esc(text)}</span>`; }
+function setTag(id, text, kind = '') { const el = $(id); el.textContent = text; el.className = 'tag' + (kind ? ' ' + kind : ''); el.classList.toggle('hidden', !text); }
+const flag = (name) => S.rules.flags[name].value;
+
+function callTag(c) {
+  if (!c) return tag('Not started');
+  if (c.status === 'queued') return flag('calls_enabled') ? tag('Waiting to call') : tag('Paused', 'bad');
+  if (c.status === 'ringing') return tag('Ringing…', 'warn');
+  if (c.status === 'live') return c.stopping ? tag('Ending call…', 'bad') : tag('On call', 'live');
+  if (c.status === 'summarizing') return tag('Reading call…', 'warn');
+  if (c.error === 'No answer') return tag('No answer', 'bad');
+  if (c.endReason) return tag('Stopped', 'bad');
+  const mins = c.startedAt ? Math.max(1, Math.round(((c.endedAt || Date.now()) - c.startedAt) / 60000)) : 0;
+  return tag(mins ? `Done, ${mins} min` : 'Done');
+}
+
+function render(s) {
+  S = s;
+  const w = s.wedding;
+  $('wedLine').textContent = `${w.couple} · ${w.dateShort} · ${w.city} · ${s.guests} guests`;
+  $('vendorNames').textContent = s.vendors.map((v) => v.name).join(', ');
+  $('dateHead').textContent = w.dateShort;
+  $('s1text').textContent = `Pick ${s.vendors.length} caterers from your vendor list`;
+  $('killBanner').classList.toggle('hidden', flag('calls_enabled'));
+
+  renderRules(s);
+  renderLinks(s);
+
+  const job = s.job, d = s.decision;
+  const calls = s.vendors.map((v) => s.calls[v.id]).filter(Boolean);
+  $('jobForm').classList.toggle('hidden', !!job);
+  $('jobBubble').classList.toggle('hidden', !job);
+  $('planCard').classList.toggle('hidden', !job);
+  $('resetBtn').classList.toggle('hidden', !job);
+  $('compareCard').classList.toggle('hidden', !job);
+  $('title').textContent = job ? 'Find a veg caterer for the wedding' : 'Give Milan a job';
+  if (job) $('jobBubble').textContent = job.text;
+
+  // Plan steps
+  const anyLive = calls.some((c) => c.status === 'live' || c.status === 'summarizing');
+  const anyRinging = calls.some((c) => c.status === 'ringing');
+  const allDone = calls.length && calls.every((c) => c.status === 'done');
+  const doneCount = calls.filter((c) => c.status === 'done').length;
+  if (job) {
+    const paused = !flag('calls_enabled') && !allDone;
+    if (!job.planShown) setTag('s1', 'Planning…', 'warn'); else setTag('s1', 'Done');
+    setTag('s2', !job.planShown ? 'Next' : allDone ? 'Done' : paused ? 'Paused' : anyLive ? `On calls · ${doneCount}/${calls.length} done` : anyRinging ? `Calling · ${doneCount}/${calls.length} done` : 'Waiting', allDone ? '' : paused ? 'bad' : anyLive ? 'live' : 'warn');
+    setTag('s3', d ? 'Done' : allDone ? 'Working' : 'Waiting', d ? '' : allDone ? 'warn' : '');
+    const st4 = !d || d.status === 'none' ? ['Waiting', ''] : d.status === 'pending' ? ['Needs you', 'dark'] : d.status === 'approved' ? ['Approved', 'live'] : ['Declined', 'bad'];
+    setTag('s4', ...st4);
+  }
+
+  // Comparison table: one row per caterer, filled in as each call finishes
+  $('compareRows').innerHTML = s.vendors.map((v) => {
+    const c = s.calls[v.id], r = c?.result;
+    const rec = d && d.vendorId === v.id && d.status !== 'none';
+    const badge = rec ? ' ' + (d.status === 'approved' ? tag('Booked', 'live') : d.status === 'declined' ? tag('Declined', 'bad') : tag('Recommended', 'dark')) : '';
+    if (!r) {
+      const st = !c ? '' : c.status === 'done' ? (c.error === 'No answer' ? 'No answer' : c.endReason ? 'Call stopped before a quote' : 'No quote') : c.status === 'summarizing' ? 'Reading call…' : c.status === 'live' ? 'On call…' : c.status === 'queued' ? (flag('calls_enabled') ? 'Waiting to call…' : 'Paused') : 'Ringing…';
+      return `<tr><td><b>${esc(v.name)}</b></td><td colspan="4" class="muted">${esc(st)}</td></tr>`;
+    }
+    const over = r.price_per_plate && r.price_per_plate > flag('max_price_per_plate');
+    return `<tr><td><b>${esc(v.name)}</b>${badge}</td>` +
+      `<td>${r.price_per_plate ? rupees(r.price_per_plate) : 'Not given'}${over ? ' ' + tag('Over budget') : ''}</td>` +
+      `<td>${esc(r.date_available)}</td><td>${esc(r.includes)}</td><td>${esc(r.advance)}</td></tr>`;
+  }).join('');
+
+  // Recommendation line + buttons
+  $('recoBox').classList.toggle('hidden', !d || d.status === 'none');
+  $('recoWait').classList.toggle('hidden', !!d && d.status !== 'none');
+  if (!d) {
+    $('recoWait').textContent = allDone ? 'Comparing the quotes…' : 'Milan will compare the quotes once every call is finished.';
+    $('recoButtons').classList.add('hidden');
+  } else if (d.status === 'none') {
+    $('recoWait').textContent = d.reason;
+    $('recoButtons').classList.add('hidden');
+  } else {
+    $('recoTitle').textContent = `Recommended: ${d.vendorName}`;
+    $('recoText').textContent = d.reason;
+    $('recoOthers').textContent = d.others ? d.others.charAt(0).toUpperCase() + d.others.slice(1) + '.' : '';
+    $('recoButtons').classList.toggle('hidden', d.status !== 'pending');
+    // approval_before_booking (Flagsmith) is on: open the Approve sheet by itself, once.
+    if (d.status === 'pending' && !autoOpened[d.createdAt] && !sheetFor) { autoOpened[d.createdAt] = true; openSheet('initial'); }
+  }
+
+  // After the family decides
+  $('doneCard').classList.toggle('hidden', !d || (d.status !== 'approved' && d.status !== 'declined'));
+  if (d?.status === 'approved') $('doneCard').innerHTML = `<p class="card-title" style="margin:0">Booked ${esc(d.vendorName)} ${tag('Confirmed', 'dark')}</p><p style="margin:6px 0 0" class="muted">${d.guests} guests × ${rupees(d.pricePerPlate)} = ${rupees(d.total)}. Advance: ${esc(d.advance)}.${d.auto ? ' Booked without asking because approval_before_booking is off in Flagsmith.' : ''} <a href="/vendors">See it on the Vendors page</a>.</p>`;
+  if (d?.status === 'declined') $('doneCard').innerHTML = `<p style="margin:0;font-weight:600">You declined ${esc(d.vendorName)}.</p><p style="margin:6px 0 0" class="muted">Nothing was booked. Press Start over to try again.</p>`;
+
+  renderChange(s);
+  renderFeed(s);
+
+  // Reply box: available once Milan has picked a caterer and isn't busy with another change
+  const ch = s.change;
+  const changeBusy = ch && !['approved', 'declined', 'none'].includes(ch.decision?.status);
+  const canReply = d?.vendorId && d.status !== 'declined' && !changeBusy;
+  $('replyBox').classList.toggle('hidden', !canReply);
+  $('replyHint').classList.toggle('hidden', !canReply || !!ch);
+
+  renderCallCards(s);
+  if (sheetFor === 'initial' && d?.status !== 'pending') closeSheet();
+  if (sheetFor === 'change' && ch?.decision?.status !== 'pending') closeSheet();
+}
+
+function renderChange(s) {
+  const ch = s.change;
+  $('changeBubble').classList.toggle('hidden', !ch);
+  $('changeCard').classList.toggle('hidden', !ch);
+  if (!ch) return;
+  const vname = s.vendors.find((v) => v.id === ch.vendorId)?.name;
+  const c = ch.call, cd = ch.decision;
+  $('changeBubble').textContent = ch.text;
+  $('changeTitle').textContent = `Guest count: ${ch.fromGuests} → ${ch.toGuests}`;
+  $('c1text').textContent = `Call ${vname} back: can they do ${ch.toGuests}, and at what price?`;
+  const callDone = c.status === 'done';
+  setTag('c1', callDone ? 'Done' : c.status === 'live' ? 'On call' : c.status === 'ringing' ? 'Calling' : c.status === 'summarizing' ? 'Reading call…' : flag('calls_enabled') ? 'Waiting' : 'Paused',
+    callDone ? '' : c.status === 'live' ? 'live' : c.status === 'queued' && !flag('calls_enabled') ? 'bad' : 'warn');
+  setTag('c2', cd && cd.now ? 'Done' : callDone ? 'Working' : 'Waiting', cd ? '' : callDone ? 'warn' : '');
+  let c3 = ['Waiting', ''];
+  if (cd?.status === 'pending') c3 = ['Needs you', 'dark'];
+  else if (cd?.status === 'approved') c3 = [cd.auto ? 'Approved automatically' : 'Approved', 'live'];
+  else if (cd?.status === 'declined') c3 = ['Declined', 'bad'];
+  else if (cd?.status === 'none') c3 = ['Not possible', 'bad'];
+  setTag('c3', ...c3);
+
+  $('changeCost').classList.toggle('hidden', !cd?.now);
+  if (cd?.now) {
+    $('changeCost').innerHTML =
+      `<div class="cost"><span>Before: ${cd.before.guests} × ${rupees(cd.before.price)}</span><span>${rupees(cd.before.total)}</span></div>` +
+      `<div class="cost"><span>Now: ${cd.now.guests} × ${rupees(cd.now.price)}</span><b>${rupees(cd.now.total)}</b></div>` +
+      `<div class="cost"><span>Catering budget</span><span>${rupees(cd.budgetTotal)}</span></div>` +
+      `<div class="cost"><b>${cd.overBy > 0 ? 'Over budget by' : 'Under budget by'}</b><b>${rupees(Math.abs(cd.overBy))}</b></div>`;
+  }
+  let text = cd ? cd.reason : callDone ? 'Working out the new cost…' : `Milan is calling ${vname} back.`;
+  if (cd?.status === 'pending') text += ' Anything over budget needs your approval.';
+  if (cd?.status === 'approved') text += cd.auto ? ` ${cd.autoReason}` : ` You approved it: ${vname} is now booked for ${cd.now.guests} guests.`;
+  if (cd?.status === 'declined') text += ` You declined. ${vname} stays booked for ${cd.before.guests} guests.`;
+  $('changeText').textContent = text;
+  $('changeButtons').classList.toggle('hidden', cd?.status !== 'pending');
+}
+
+let lastFeedKey = '';
+function renderFeed(s) {
+  const key = String(s.activity.length);
+  if (key === lastFeedKey) return;
+  lastFeedKey = key;
+  const t = (ms) => new Date(ms).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  $('feed').innerHTML = s.activity.length
+    ? s.activity.slice().reverse().map((a) => `<li class="${esc(a.kind)}"><time>${t(a.at)}</time><span class="dot"></span><span>${esc(a.text)}</span></li>`).join('')
+    : '<li><span class="muted">Nothing yet. Give Milan a job.</span></li>';
+}
+
+function renderRules(s) {
+  const r = s.rules;
+  $('rulesText').textContent = `Stay under ${rupees(flag('max_price_per_plate'))} a plate (${rupees(s.cateringBudget)} for ${s.wedding.guests} guests). Say Milan is an AI on every call.`;
+  const on = (v) => (v ? tag('On', 'live') : tag('Off', 'bad'));
+  const rows = [
+    ['calls_enabled', 'Calls allowed (kill switch)', on(flag('calls_enabled'))],
+    ['approval_before_booking', 'Ask me before booking', on(flag('approval_before_booking'))],
+    ['approval_over_budget', 'Ask me if over budget', on(flag('approval_over_budget'))],
+    ['max_price_per_plate', 'Max price per plate', tag(rupees(flag('max_price_per_plate')))],
+    ['max_parallel_calls', 'Calls at once', tag(String(flag('max_parallel_calls')))],
+    ['call_languages', 'Call languages', tag(String(flag('call_languages')))],
+    ['ai_disclosure', 'Say it is an AI', flag('ai_disclosure') ? on(true) : tag('Always on in demo', 'warn')],
+  ];
+  const live = r.source === 'flagsmith';
+  $('rulesList').innerHTML = rows.map(([name, label, val]) => {
+    const missing = live && !r.flags[name].fromFlagsmith;
+    return `<div class="rule"><span>${esc(label)} <code class="muted">${name}</code>${missing ? '<br><span style="color:var(--bad);font-size:12px">Not found in Flagsmith: using the default</span>' : ''}</span>${val}</div>`;
+  }).join('');
+  $('rulesSource').textContent = r.source === 'flagsmith'
+    ? `Live from Flagsmith (identity "${r.identity}").${r.error ? ' ' + r.error + ' (using last known rules)' : ''}`
+    : r.source === 'connecting' ? 'Connecting to Flagsmith…' : `Default rules: Flagsmith is not connected yet.${r.error ? ' ' + r.error : ''}`;
+}
+
+function renderLinks(s) {
+  const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
+  const base = (s.publicUrl || location.origin).replace(/\/$/, '');
+  const key = base + s.vendors.map((v) => v.id).join();
+  $('linkWarn').classList.toggle('hidden', !!s.publicUrl || !isLocal);
+  if (key === lastLinksKey) return;
+  lastLinksKey = key;
+  $('linkRows').innerHTML = s.vendors.filter((v) => !v.practice).map((v) => `<div class="linkrow"><span>${esc(v.name.split(' ')[0])}</span><input readonly value="${esc(base)}/vendor?v=${esc(v.id)}"><button class="btn" data-copy>Copy</button></div>`).join('');
+  $('linkRows').querySelectorAll('[data-copy]').forEach((b) => (b.onclick = async () => {
+    const input = b.previousElementSibling;
+    try { await navigator.clipboard.writeText(input.value); b.textContent = 'Copied'; } catch { input.select(); }
+    setTimeout(() => (b.textContent = 'Copy'), 1500);
+  }));
+}
+
+function callCard(key, title, c) {
+  const r = c?.result;
+  let hint = 'Waiting for a job.';
+  if (c?.status === 'queued') hint = flag('calls_enabled') ? 'Waiting for a free line (max calls at once).' : 'Paused by the kill switch in Flagsmith.';
+  if (c?.status === 'ringing') hint = title.includes('practice') ? 'Ringing. This practice vendor will answer in a moment.' : 'Ringing. Answer on your phone link.';
+  if (c?.status === 'live') hint = c.stopping ? 'Calls were turned off: Milan is ending this call politely.' : 'Hindi. Milan is talking to them now.';
+  if (c?.status === 'summarizing') hint = 'Hindi. Reading the call…';
+  if (c?.status === 'done') hint = c.endReason ? c.endReason + '.' : r?.quote_line ? `Hindi. "${r.quote_line}"` : c.error === 'No answer' ? 'They did not answer.' : 'Hindi. Call finished.';
+  const lines = c?.transcript || [];
+  const open = openTranscripts[key] ?? (c && (c.status === 'live' || c.status === 'summarizing'));
+  const tr = open ? `<div style="margin-top:8px">${lines.length ? lines.map((l) => `<div class="line"><div class="who">${l.speaker === 'milan' ? 'Milan (AI)' : esc(title.split(' · ')[0])}</div><div>${esc(l.text)}</div><div class="en">${l.english ? esc(l.english) : 'Translating…'}</div></div>`).join('') : '<p class="muted" style="margin:0;font-size:14px">Nothing said yet.</p>'}</div>` : '';
+  const err = c?.error && c.error !== 'No answer' ? `<p style="margin:6px 0 0;font-size:13px;color:var(--bad)">Problem: ${esc(c.error)}</p>` : '';
+  return `<div class="card" id="call-${key}" style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><b>${esc(title)}</b>${callTag(c)}</div>` +
+    `<p style="margin:6px 0 0;color:var(--muted);font-size:14px">${esc(hint)}</p>${err}` +
+    (c ? `<button class="linkbtn" style="margin-top:6px" data-tr="${key}">${open ? 'Hide transcript' : 'Read transcript'}${lines.length ? ` (${lines.length})` : ''}</button>` : '') + tr + `</div>`;
+}
+
+function renderCallCards(s) {
+  const key = JSON.stringify([s.calls, s.change?.call, openTranscripts, s.rules.flags.calls_enabled]);
+  if (key === lastCallsKey) return;
+  lastCallsKey = key;
+  let html = '';
+  if (s.change) {
+    const vname = s.vendors.find((v) => v.id === s.change.vendorId)?.name;
+    html += callCard('callback', `${vname} · call back`, s.change.call);
+  }
+  html += s.vendors.map((v) => callCard(v.id, v.practice ? `${v.name} · practice` : `${v.name} · your phone`, s.calls[v.id])).join('');
+  $('callCards').innerHTML = html;
+  $('callCards').querySelectorAll('[data-tr]').forEach((b) => (b.onclick = () => {
+    const c = b.dataset.tr === 'callback' ? S.change?.call : S.calls[b.dataset.tr];
+    const cur = openTranscripts[b.dataset.tr] ?? (c && (c.status === 'live' || c.status === 'summarizing'));
+    openTranscripts[b.dataset.tr] = !cur;
+    renderCallCards(S);
+  }));
+}
+
+// ---------- Approve side sheet ----------
+function openSheet(which) {
+  sheetFor = which;
+  if (which === 'change') {
+    const ch = S.change, cd = ch?.decision;
+    if (!cd || cd.status !== 'pending') return;
+    $('sheetTitle').textContent = `Approve ${cd.vendorName} for ${cd.now.guests} guests?`;
+    $('sheetFoundHead').textContent = 'What changed';
+    const why = cd.priceReason ? ` because ${cd.priceReason.replace(/^because\s+/i, '').replace(/\.$/, '')}` : '';
+    $('sheetFound').textContent = `You raised the guest count from ${cd.before.guests} to ${cd.now.guests}. Milan called ${cd.vendorName}: they can serve ${cd.now.guests}, at ${rupees(cd.now.price)} a plate${why}.`;
+    $('sheetCost').innerHTML =
+      `<div class="line2" style="border-top:0"><span>Before: ${cd.before.guests} × ${rupees(cd.before.price)}</span><span>${rupees(cd.before.total)}</span></div>` +
+      `<div class="line2"><span>Now: ${cd.now.guests} × ${rupees(cd.now.price)}</span><b>${rupees(cd.now.total)}</b></div>` +
+      `<div class="line2"><span>Catering budget</span><span>${rupees(cd.budgetTotal)}</span></div>` +
+      `<div class="line2"><b>Over budget by</b><b>${rupees(cd.overBy)}</b></div>`;
+    $('sheetWhy').innerHTML = `<span>⚑</span><span>This rule comes from <b>Flagsmith</b>: <code>approval_over_budget</code> is <b>on</b>, so anything over budget needs your approval.</span>`;
+    $('sheetIf').textContent = `${cd.vendorName} is booked for ${cd.now.guests} guests at ${rupees(cd.now.total)}, and your guest count becomes ${cd.now.guests}. (The confirmation call and WhatsApp summary are not built yet in this demo.)`;
+    $('sheetListen').textContent = `Read the call back with ${cd.vendorName}`;
+    $('approveBtn').textContent = `Approve ${rupees(cd.now.total)}`;
+  } else {
+    const d = S.decision;
+    if (!d || d.status !== 'pending') return;
+    const r = S.calls[d.vendorId]?.result || {};
+    $('sheetTitle').textContent = `Book ${d.vendorName} for ${rupees(d.total)}?`;
+    $('sheetFoundHead').textContent = 'What Milan found';
+    $('sheetFound').textContent = `Milan called ${S.vendors.length} caterers. ${d.vendorName} is free on ${S.wedding.dateShort} at ${rupees(d.pricePerPlate)} a plate${r.includes ? `, including ${r.includes.toLowerCase()}` : ''}. They want ${d.advance} advance.`;
+    const diff = d.budgetTotal - d.total;
+    $('sheetCost').innerHTML =
+      `<div class="line2" style="border-top:0"><span>${d.guests} × ${rupees(d.pricePerPlate)}</span><b>${rupees(d.total)}</b></div>` +
+      `<div class="line2"><span>Catering budget (${d.guests} × ${rupees(d.budgetPerPlate)})</span><span>${rupees(d.budgetTotal)}</span></div>` +
+      `<div class="line2"><b>${diff >= 0 ? 'Under budget by' : 'Over budget by'}</b><b>${rupees(Math.abs(diff))}</b></div>`;
+    const fromFs = S.rules.source === 'flagsmith' && S.rules.flags.approval_before_booking.fromFlagsmith;
+    $('sheetWhy').innerHTML = `<span>⚑</span><span>This rule comes from <b>Flagsmith</b>: <code>approval_before_booking</code> is <b>on</b>, so Milan asks you before booking any vendor.${fromFs ? '' : ' <i>(Flagsmith flag not found yet: using the default.)</i>'}</span>`;
+    $('sheetIf').textContent = `${d.vendorName} is booked for ${S.wedding.dateShort} and shows as Confirmed on your Vendors page.`;
+    $('sheetListen').textContent = `Read the call with ${d.vendorName}`;
+    $('approveBtn').textContent = 'Approve';
+  }
+  $('scrim').classList.remove('hidden');
+  $('sheet').classList.remove('hidden');
+  $('approveBtn').focus();
+}
+function closeSheet() { sheetFor = null; $('scrim').classList.add('hidden'); $('sheet').classList.add('hidden'); }
+
+$('reviewBtn').onclick = () => openSheet('initial');
+$('reviewChangeBtn').onclick = () => openSheet('change');
+$('closeSheet').onclick = closeSheet;
+$('scrim').onclick = closeSheet;
+$('cheaperBtn').onclick = closeSheet; // "find more options" is a later step; for now just go back
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSheet(); });
+$('sheetListen').onclick = () => {
+  const key = sheetFor === 'change' ? 'callback' : S.decision.vendorId;
+  closeSheet();
+  openTranscripts[key] = true;
+  renderCallCards(S);
+  $('call-' + key)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+async function decide(action, btn) {
+  const which = sheetFor;
+  btn.disabled = true;
+  try { render(await api('POST', '/api/decision', { action, which })); } catch (e) { alert(e.message); }
+  btn.disabled = false;
+}
+$('approveBtn').onclick = (e) => decide('approve', e.currentTarget);
+$('declineBtn').onclick = (e) => decide('decline', e.currentTarget);
+
+// ---------- Job and replies ----------
+$('giveBtn').onclick = async () => {
+  const text = $('jobText').value.trim();
+  if (!text) return $('jobText').focus();
+  $('giveBtn').disabled = true;
+  openTranscripts = {};
+  try { render(await api('POST', '/api/job', { text })); } catch (e) { alert(e.message); }
+  $('giveBtn').disabled = false;
+};
+
+async function sendReply() {
+  const text = $('reply').value.trim();
+  if (!text) return $('reply').focus();
+  $('sendBtn').disabled = true;
+  $('sendBtn').textContent = 'Sending…';
+  try {
+    render(await api('POST', '/api/change', { text }));
+    $('reply').value = '';
+    openTranscripts.callback = true;
+  } catch (e) { alert(e.message); }
+  $('sendBtn').disabled = false;
+  $('sendBtn').textContent = 'Send';
+}
+$('sendBtn').onclick = sendReply;
+$('reply').addEventListener('keydown', (e) => { if (e.key === 'Enter') sendReply(); });
+
+$('resetBtn').onclick = async () => { openTranscripts = {}; render(await api('POST', '/api/reset')); $('jobText').value = ''; };
+
+async function poll() {
+  try { render(await api('GET', '/api/state')); } catch {}
+  setTimeout(poll, 1000);
+}
+poll();
+</script>
+</body>
+</html>

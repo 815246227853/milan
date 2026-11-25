@@ -1,0 +1,10 @@
+# Local Kubernetes cluster for Milan. Port 8080 on your laptop goes straight to the
+# milan Service (NodePort 30080), so it keeps working when the pod is killed and replaced.
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: milan
+nodes:
+  - role: control-plane
+    extraPortMappings:
+      - containerPort: 30080
+        hostPort: 8080

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Milan · Set up your wedding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Same look as the dashboard (job.html) and apps/landing. Layout from docs/wireframes/setup.html. */
+:root{--paper:#FBF7F0;--card:#FFFDF9;--ink:#2E2A25;--ink2:#5A5148;--muted:#6B6158;--line:#EADFD0;--line2:#CDBFAE;--olive:#56644A;--olive2:#4B583F;--olive-soft:#E6EBDD;--saffron-soft:#FBEBD0;--rust:#B8651E;--bad:#9A3B2A;--bad-soft:#F6DDD5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);font-family:Jost,system-ui,sans-serif;color:var(--ink);font-size:15px;line-height:1.5}
+a{color:var(--ink)}
+.top{max-width:760px;margin:0 auto;padding:26px 24px 0;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:30px;letter-spacing:.02em;text-decoration:none}
+.brand em{color:var(--olive);font-style:italic}
+main{max-width:760px;margin:0 auto;padding:28px 24px 80px}
+.cap{font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.22em;margin:0}
+h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:clamp(34px,5vw,46px);line-height:1.1;margin:8px 0 6px}
+.sub{color:var(--ink2);margin:0 0 26px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 24px;margin-bottom:18px}
+.card-title{margin:0 0 4px;font-family:"Cormorant Garamond",Georgia,serif;font-size:24px;font-weight:500}
+.hint{margin:0 0 14px;color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px 18px}
+.lbl{display:block;font-size:14px;font-weight:500;margin-bottom:6px}
+.input{display:block;width:100%;height:46px;padding:0 14px;border:1px solid var(--line2);border-radius:12px;background:#FFF;font:inherit;color:var(--ink)}
+.input:focus{outline:none;border-color:var(--olive);box-shadow:0 0 0 4px rgba(86,100,74,.15)}
+.input[aria-invalid="true"]{border-color:var(--bad)}
+.pair{display:flex;gap:8px;align-items:center}
+.pair .amp{color:var(--muted);font-family:"Cormorant Garamond",Georgia,serif;font-size:22px}
+.prefix{position:relative}
+.prefix span{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.prefix .input{padding-left:30px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--line2);font:inherit;font-size:14px;color:var(--ink2);background:#FFF;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--olive);border-color:var(--olive);color:var(--paper)}
+.vendor{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-top:1px solid var(--line)}
+.vendor:first-of-type{border-top:0}
+.muted{color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:50px;padding:0 26px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--ink);font-family:Jost,system-ui,sans-serif;font-weight:500;font-size:12px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;text-decoration:none}
+.btn.pri{background:var(--olive);border-color:var(--olive);color:var(--paper)}
+.btn.pri:hover{background:var(--olive2)}
+.btn:disabled{opacity:.55;cursor:default}
+.linkbtn{background:none;border:0;padding:0;font:inherit;font-size:14px;text-decoration:underline;cursor:pointer;color:var(--ink)}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:8px}
+.err{background:var(--bad-soft);border:1px solid #EDC3B7;color:var(--bad);border-radius:12px;padding:12px 16px;margin-bottom:18px}
+.note{background:var(--saffron-soft);border:1px solid #F1D3A0;color:var(--rust);border-radius:12px;padding:12px 16px;margin-bottom:18px}
+.hidden{display:none!important}
+@media (max-width:520px){.top,main{padding-left:16px;padding-right:16px}.card{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="brand" href="/">Mil<em>a</em>n</a>
+  <a class="linkbtn hidden" id="toDash" href="/">Back to dashboard</a>
+</div>
+<main>
+  <p class="cap" id="stepCap">Step 1 of 1 · Two minutes</p>
+  <h1 id="heading">Tell Milan about your wedding</h1>
+  <p class="sub">Milan uses this on every call it makes for you. You can change any of it later.</p>
+
+  <div class="note hidden" id="jobNote">Milan is in the middle of a job. Saving new details starts over with a fresh job.</div>
+  <div class="err hidden" id="err" role="alert"></div>
+
+  <form id="form" novalidate>
+    <section class="card">
+      <p class="card-title">The wedding</p>
+      <p class="hint">Who, when and where.</p>
+      <div class="grid">
+        <div style="grid-column:1/-1">
+          <span class="lbl" id="namesLbl">Whose wedding?</span>
+          <div class="pair" role="group" aria-labelledby="namesLbl">
+            <label for="p1" class="hidden">First name</label><input class="input" id="p1" placeholder="Riya" autocomplete="off" maxlength="40" required>
+            <span class="amp">&amp;</span>
+            <label for="p2" class="hidden">Second name</label><input class="input" id="p2" placeholder="Arjun" autocomplete="off" maxlength="40" required>
+          </div>
+        </div>
+        <div><label class="lbl" for="date">Main wedding date</label><input class="input" id="date" type="date" required></div>
+        <div><label class="lbl" for="city">City</label><input class="input" id="city" placeholder="Nagpur" maxlength="60" required></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <p class="card-title">Guests and budget</p>
+      <p class="hint">Milan checks every quote against this, and asks you before going over it.</p>
+      <div class="grid">
+        <div><label class="lbl" for="guests">Guests, roughly</label><input class="input" id="guests" type="number" inputmode="numeric" min="10" max="5000" step="1" placeholder="250" required></div>
+        <div><label class="lbl" for="budget">Catering budget per plate</label><div class="prefix"><span>₹</span><input class="input" id="budget" type="number" inputmode="numeric" min="100" max="20000" step="10" placeholder="1000" required></div></div>
+      </div>
+      <p class="muted" style="margin:12px 0 0;font-size:14px" id="budgetLine"></p>
+    </section>
+
+    <section class="card">
+      <p class="card-title">Which functions are you having?</p>
+      <p class="hint">Labels Milan uses on vendors and jobs.</p>
+      <div class="chips" id="chips"></div>
+    </section>
+
+    <section class="card">
+      <p class="card-title">Vendors Milan will call first</p>
+      <p class="hint">Milan starts with these caterers and calls them in Hindi, introducing itself as your AI assistant.</p>
+      <div id="vendors"></div>
+    </section>
+
+    <div class="foot">
+      <button type="button" class="linkbtn" id="demoBtn">Fill in the demo wedding</button>
+      <button type="submit" class="btn pri" id="saveBtn">Set up my wedding →</button>
+    </div>
+  </form>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const FUNCTIONS = ['Engagement', 'Haldi', 'Mehendi', 'Sangeet', 'Wedding', 'Reception'];
+const DEMO = { partner1: 'Riya', partner2: 'Arjun', date: '2026-12-12', city: 'Nagpur', guests: 250, budgetPerPlate: 1000, functions: ['Haldi', 'Mehendi', 'Sangeet', 'Wedding', 'Reception'] };
+let picked = new Set(['Wedding']);
+
+function localToday() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+$('date').min = localToday();
+
+function renderChips() {
+  $('chips').innerHTML = FUNCTIONS.map((f) => `<button type="button" class="chip" aria-pressed="${picked.has(f)}" data-f="${esc(f)}">${esc(f)}</button>`).join('');
+  $('chips').querySelectorAll('[data-f]').forEach((b) => (b.onclick = () => {
+    const f = b.dataset.f;
+    picked.has(f) ? picked.delete(f) : picked.add(f);
+    renderChips();
+  }));
+}
+
+function updateBudgetLine() {
+  const g = Number($('guests').value), b = Number($('budget').value);
+  $('budgetLine').textContent = g > 0 && b > 0 ? `That's a catering budget of ₹${(g * b).toLocaleString('en-IN')} for ${g.toLocaleString('en-IN')} guests.` : '';
+}
+$('guests').oninput = updateBudgetLine;
+$('budget').oninput = updateBudgetLine;
+
+function fill(w) {
+  $('p1').value = w.partner1 || '';
+  $('p2').value = w.partner2 || '';
+  $('date').value = w.date || '';
+  $('city').value = w.city || '';
+  $('guests').value = w.guests || '';
+  $('budget').value = w.budgetPerPlate || '';
+  picked = new Set(w.functions?.length ? w.functions : ['Wedding']);
+  renderChips();
+  updateBudgetLine();
+}
+$('demoBtn').onclick = () => { fill(DEMO); clearErrors(); };
+
+function clearErrors() {
+  $('err').classList.add('hidden');
+  document.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+}
+
+function validate() {
+  const bad = [];
+  const need = (id, ok) => { if (!ok) { $(id).setAttribute('aria-invalid', 'true'); bad.push(id); } };
+  need('p1', $('p1').value.trim());
+  need('p2', $('p2').value.trim());
+  need('date', $('date').value && $('date').value >= localToday());
+  need('city', $('city').value.trim());
+  const g = Number($('guests').value), b = Number($('budget').value);
+  need('guests', Number.isInteger(g) && g >= 10 && g <= 5000);
+  need('budget', Number.isFinite(b) && b >= 100 && b <= 20000);
+  if (!bad.length) return true;
+  const msgs = { p1: 'both names', p2: 'both names', date: 'a wedding date from today on', city: 'the city', guests: 'a guest count between 10 and 5,000', budget: 'a budget between ₹100 and ₹20,000 a plate' };
+  const list = [...new Set(bad.map((id) => msgs[id]))];
+  $('err').textContent = `Please add ${list.join(', ')}.`;
+  $('err').classList.remove('hidden');
+  $(bad[0]).focus();
+  return false;
+}
+
+$('form').onsubmit = async (e) => {
+  e.preventDefault();
+  clearErrors();
+  if (!validate()) return;
+  $('saveBtn').disabled = true;
+  $('saveBtn').textContent = 'Setting up…';
+  try {
+    const res = await fetch('/api/wedding', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        partner1: $('p1').value.trim(), partner2: $('p2').value.trim(), date: $('date').value, city: $('city').value.trim(),
+        guests: Number($('guests').value), budgetPerPlate: Number($('budget').value), functions: FUNCTIONS.filter((f) => picked.has(f)),
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(data.error || 'Something went wrong. Try again.');
+    location.href = '/';
+  } catch (err) {
+    $('err').textContent = err.message;
+    $('err').classList.remove('hidden');
+    $('saveBtn').disabled = false;
+    $('saveBtn').textContent = 'Set up my wedding →';
+  }
+};
+
+// Load what Milan already knows: the vendor list, and the wedding if this is an edit.
+(async () => {
+  renderChips();
+  try {
+    const s = await (await fetch('/api/state')).json();
+    $('vendors').innerHTML = s.vendors.filter((v) => !v.practice).map((v) => `<div class="vendor"><span><b>${esc(v.name)}</b> <span class="muted">· ${esc(v.category)}</span></span><span class="muted">${esc(v.language)}</span></div>`).join('');
+    if (s.setup) {
+      fill(s.wedding);
+      $('heading').textContent = 'Your wedding details';
+      $('stepCap').textContent = 'Edit';
+      $('saveBtn').textContent = 'Save and go to dashboard →';
+      $('toDash').classList.remove('hidden');
+      $('jobNote').classList.toggle('hidden', !s.job);
+    }
+  } catch {
+    $('vendors').innerHTML = '<p class="muted" style="margin:0">Could not load your vendor list. You can still continue.</p>';
+  }
+})();
+</script>
+</body>
+</html>

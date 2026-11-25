@@ -1,0 +1,6 @@
+# Only what the Milan image needs (apps/call-demo/Dockerfile, built from the repo root). Keeps .env out.
+*
+!apps/call-demo/package.json
+!apps/call-demo/server.js
+!apps/call-demo/public
+!apps/landing/index.html

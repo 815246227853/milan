@@ -1,0 +1,112 @@
+/* Milan app design system. Same language as apps/landing: aged paper, brass gold, rose,
+   Cormorant Garamond for display, Jost for UI, Great Vibes for the occasional flourish. */
+:root{
+  --paper:#F3EAD3;--paper-2:#F8F2E2;--paper-3:#EDE1C4;--card:#FBF7EC;--card-2:#FFFCF4;
+  --ink:#3E2E1F;--ink-2:#5E4D3B;--muted:#7A6A57;--head:#4A321C;
+  --gold:#A47A36;--gold-d:#7C5720;--gold-l:#D9BE86;--line:#DCC9A3;--line-2:#EADBBB;
+  --rose:#B44B63;--rose-d:#8C2F45;--rose-l:#EBB2BC;--rose-soft:#F6E1E4;
+  --sage:#6E8C5A;--sage-d:#4F6B3F;--sage-l:#DCE5CF;
+  --amber:#B8701E;--amber-l:#F6E3C2;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --shadow:0 1px 0 rgba(90,60,25,.04),0 18px 40px -22px rgba(90,60,25,.28);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Jost,system-ui,sans-serif;font-weight:300;font-size:16px;line-height:1.55;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .36  0 0 0 0 .22  0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+a{color:var(--rose-d)}
+b,strong{font-weight:500}
+button{font:inherit;color:inherit}
+.serif{font-family:"Cormorant Garamond",Georgia,serif}
+.script{font-family:"Great Vibes",cursive;font-weight:400}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:400;color:var(--head);margin:0;line-height:1.08}
+h1 em,h2 em,h3 em{color:var(--rose);font-style:italic}
+.cap{font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin:0;font-weight:400}
+.muted{color:var(--muted)}
+.hidden{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Buttons: the landing page's rose button with the double brass ring */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 26px;border-radius:999px;border:1px solid var(--gold-l);background:rgba(251,247,236,.7);color:var(--ink);
+  font-size:12px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;cursor:pointer;white-space:nowrap;
+  transition:transform .35s var(--ease),box-shadow .35s,background .35s,border-color .35s}
+.btn:hover{transform:translateY(-2px);border-color:var(--gold)}
+.btn.pri{border:0;background:var(--rose-d);color:#FBEFD6;box-shadow:inset 0 0 0 1px rgba(246,214,150,.5),inset 0 0 0 4px var(--rose-d),inset 0 0 0 5px rgba(246,214,150,.45)}
+.btn.pri:hover{background:#7A2639;box-shadow:inset 0 0 0 1px rgba(246,214,150,.5),inset 0 0 0 4px #7A2639,inset 0 0 0 5px rgba(246,214,150,.45),0 14px 30px rgba(140,47,69,.28)}
+.btn.sm{height:38px;padding:0 18px;font-size:11px;letter-spacing:.18em}
+.btn:disabled{opacity:.5;cursor:default;transform:none;box-shadow:none}
+.btn .arr{transition:transform .35s}.btn:hover .arr{transform:translateX(4px)}
+.btn:focus-visible,.chip:focus-visible,.link:focus-visible,.orb:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.link{background:none;border:0;padding:0;cursor:pointer;color:var(--rose-d);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--rose-l);font-size:14px}
+.link:hover{text-decoration-color:var(--rose-d)}
+
+/* Cards with the landing page's inner hairline */
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 24px;box-shadow:var(--shadow)}
+.card::before{content:"";position:absolute;inset:6px;border:1px solid var(--line-2);border-radius:17px;pointer-events:none;opacity:.8}
+.card>*{position:relative}
+.arch{border-radius:200px 200px 22px 22px/90px 90px 22px 22px}
+.arch::before{border-radius:194px 194px 17px 17px/84px 84px 17px 17px}
+
+/* Tags */
+.tag{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:var(--paper-2);font-size:11.5px;letter-spacing:.08em;color:var(--ink-2);white-space:nowrap;font-weight:400}
+.tag.live{background:var(--sage-l);border-color:#C3D2B3;color:var(--sage-d)}
+.tag.warn{background:var(--amber-l);border-color:#EBCB95;color:#8A5212}
+.tag.bad{background:var(--rose-soft);border-color:var(--rose-l);color:var(--rose-d)}
+.tag.ask{background:var(--rose-d);border-color:var(--rose-d);color:#FBEFD6}
+.tag.gold{background:#F4E7C8;border-color:var(--gold-l);color:var(--gold-d)}
+.tag .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.tag.live .dot{animation:blink 1.6s ease-in-out infinite}
+
+/* Chips */
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card-2);font-size:14px;color:var(--ink-2);cursor:pointer;text-align:left;
+  transition:transform .3s var(--ease),border-color .3s,background .3s}
+.chip:hover{transform:translateY(-1px);border-color:var(--gold)}
+.chip[aria-pressed="true"]{background:var(--rose-d);border-color:var(--rose-d);color:#FBEFD6}
+.chip .q{font-family:"Cormorant Garamond",serif;font-size:20px;line-height:0;color:var(--gold)}
+
+/* Inputs */
+.input{display:block;width:100%;height:50px;padding:0 16px;border:1px solid var(--line);border-radius:14px;background:var(--card-2);font:inherit;font-weight:400;color:var(--ink);transition:border-color .3s,box-shadow .3s,background .6s}
+.input::placeholder{color:#B3A48E}
+.input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px rgba(164,122,54,.14)}
+.input.filled{animation:filled 1.2s var(--ease)}
+
+/* Ornament divider */
+.orn{display:block;width:160px;height:20px;margin:0 auto}
+
+/* The voice orb: a brass mandala that breathes, listens and speaks */
+.orb{--lvl:0;position:relative;width:var(--size,148px);height:var(--size,148px);border-radius:50%;border:0;padding:0;cursor:pointer;background:none;flex:none;-webkit-tap-highlight-color:transparent}
+.orb .ring{position:absolute;inset:0;border-radius:50%;border:1px solid var(--gold-l);transition:transform .12s linear,opacity .3s}
+.orb .r1{transform:scale(calc(1 + var(--lvl) * .22));opacity:calc(.35 + var(--lvl))}
+.orb .r2{inset:-14px;border-style:dashed;opacity:.55;animation:spin 40s linear infinite}
+.orb .r3{inset:-28px;opacity:.25;transform:scale(calc(1 + var(--lvl) * .35))}
+.orb .core{position:absolute;inset:12%;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#FFF4D6 0,#F1D290 18%,#C99A4A 46%,#8C5A22 100%);
+  box-shadow:inset 0 0 0 1px rgba(255,240,200,.6),inset 0 -10px 24px rgba(80,40,10,.35),0 14px 34px -8px rgba(124,87,32,.55);
+  transform:scale(calc(1 + var(--lvl) * .08));transition:transform .1s linear,background .5s;animation:breathe 4.5s ease-in-out infinite}
+.orb .petals{position:absolute;inset:12%;border-radius:50%;opacity:.55;mix-blend-mode:soft-light}
+.orb .icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#FFF8E6}
+.orb .icon svg{width:30%;height:30%;filter:drop-shadow(0 1px 2px rgba(80,40,10,.5))}
+.orb[data-state="listening"] .core{background:radial-gradient(circle at 35% 30%,#FFE6EA 0,#E58FA2 22%,#B44B63 55%,#6E1F33 100%);animation:none}
+.orb[data-state="listening"] .ring{border-color:var(--rose-l)}
+.orb[data-state="thinking"] .r2{border-color:var(--gold);opacity:1;animation-duration:2.4s}
+.orb[data-state="thinking"] .core{animation:breathe 1.4s ease-in-out infinite}
+.orb[data-state="speaking"] .core{animation:none}
+.orb:hover .core{filter:brightness(1.05)}
+
+/* Waveform for live calls */
+.wave{display:inline-flex;align-items:center;gap:3px;height:18px}
+.wave i{display:block;width:3px;height:100%;border-radius:2px;background:var(--sage);animation:wave 1s ease-in-out infinite}
+.wave i:nth-child(2){animation-delay:-.2s}.wave i:nth-child(3){animation-delay:-.45s}.wave i:nth-child(4){animation-delay:-.7s}.wave i:nth-child(5){animation-delay:-.1s}
+
+.rise{animation:rise .8s var(--ease) both}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:30;background:var(--ink);color:#FBEFD6;border-radius:999px;padding:12px 22px;font-size:14px;box-shadow:0 18px 40px rgba(40,25,10,.3);animation:toast .5s var(--ease)}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+@keyframes wave{0%,100%{transform:scaleY(.25)}50%{transform:scaleY(1)}}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes filled{0%{background:#F4E2B6}100%{background:var(--card-2)}}
+@keyframes toast{from{opacity:0;transform:translate(-50%,14px)}}
+@keyframes fadein{from{opacity:0}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}

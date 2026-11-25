@@ -16,8 +16,6 @@ Built for **FestiveHacks** by WeMakeDevs, with **Sarvam**, **Flagsmith** and **N
 
 ## The problem
 
-> *"I said yes to getting married. Not to five full-time jobs."*
-
 India expects about **52 lakh weddings between 21 November and 15 December 2026**, more than two lakh a day ([CAIT, via Deccan Chronicle](https://www.deccanchronicle.com/nation/52-lakh-marriages-rs75-lakh-crore-of-business-this-wedding-season-cait-2006168)). Every one of them runs on vendors: caterers, decorators, bands, pandits, photographers. Almost all of them work by phone.
 
 So one person in every family becomes the wedding's unpaid operations team: calling for quotes, comparing prices that are never quoted the same way, chasing confirmations, and passing every change on to everyone else.
@@ -59,7 +57,7 @@ Family (web app)
 API + Agent ──── reads rules ────► Flagsmith
    │  creates call tasks
    ▼
-Call workers (Kubernetes) ◄──── watched by ──── NudgeBee
+Calls (Kubernetes)        ◄──── watched by ──── NudgeBee
    │  audio in/out
    ├──► Sarvam: speech-to-text, text-to-speech, translation
    ▼
@@ -101,9 +99,10 @@ Milan reads these before every call and every commitment. Each wedding is a Flag
 - Code: [`apps/api/src/agent/rules.ts`](apps/api/src/agent/rules.ts)
 
 ### NudgeBee: keeping it running in peak season
-- The API and call workers run as Kubernetes deployments ([`deploy/k8s`](deploy/k8s)).
-- NudgeBee monitors the cluster, flags crashed or unhealthy call workers, and helps find the cause.
-- Demo: we delete a call-worker pod mid-job; NudgeBee flags it, Kubernetes restarts it, and the job carries on.
+- Milan runs as a Kubernetes deployment ([`deploy/k8s/milan.yaml`](deploy/k8s/milan.yaml)), with health checks and its job state on a persistent volume.
+- NudgeBee monitors the cluster, flags crashed or unhealthy pods, and helps find the cause.
+- NudgeBee Cloud's AI (NuBi) investigates incidents and traces them to a root cause, with a causality chain and the evidence.
+- Demo: a bad config push crash-loops Milan mid-job. NudgeBee flags it, NuBi traces it to the missing Sarvam key, we roll back with approval, and the wedding job is still there. Setup and script: [`docs/k8s-nudgebee.md`](docs/k8s-nudgebee.md).
 
 ## Tech stack
 
@@ -136,7 +135,7 @@ milan/
 ├── config/
 │   └── flagsmith/           # flag definitions and defaults
 ├── deploy/
-│   └── k8s/                 # Kubernetes manifests for api and call-worker
+│   └── k8s/                 # Kubernetes manifests + up.sh (kind) for NudgeBee
 ├── docs/
 │   ├── wireframes/          # clickable greyscale wireframes (open index.html)
 │   ├── wireframes.md        # screens and flows, in words
@@ -168,14 +167,13 @@ Phone calls need a public URL for the phone line's webhooks during local dev, fo
 
 ### Run it on Kubernetes (for NudgeBee)
 
+Needs Docker, kind and kubectl. Uses `SARVAM_API_KEY` and `OPENAI_API_KEY` from `.env`.
+
 ```bash
-kind create cluster --name milan
-docker build -t milan-api apps/api && docker build -t milan-call-worker apps/call-worker
-kind load docker-image milan-api milan-call-worker --name milan
-kubectl create secret generic milan-env --from-env-file=.env
-kubectl apply -f deploy/k8s/
-# then connect the cluster to NudgeBee by following NudgeBee's setup docs
+./deploy/k8s/up.sh              # kind cluster + build + deploy → http://localhost:8080
 ```
+
+Connecting NudgeBee and the demo moments: [`docs/k8s-nudgebee.md`](docs/k8s-nudgebee.md).
 
 ## Data model
 

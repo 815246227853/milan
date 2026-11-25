@@ -2,6 +2,7 @@
   "identity": "One Flagsmith identity per wedding (the wedding id), so each family can have its own rules.",
   "flags": [
     { "name": "calls_enabled", "type": "boolean", "default": true, "description": "Kill switch. Off stops all calls; live calls end politely." },
+    { "name": "approval_before_booking", "type": "boolean", "default": true, "description": "Milan asks the family before booking any vendor." },
     { "name": "approval_over_budget", "type": "boolean", "default": true, "description": "Over-budget choices become a decision for the family instead of a booking." },
     { "name": "max_price_per_plate", "type": "number", "default": 1000, "description": "Catering quotes above this are marked over budget." },
     { "name": "call_languages", "type": "string", "default": "hi,mr", "description": "Comma-separated language codes Milan may use on calls." },

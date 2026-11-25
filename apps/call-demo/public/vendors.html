@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Milan · Vendors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Same look as apps/landing: cream paper, olive green, saffron, Cormorant Garamond + Jost */
+:root{--paper:#F3EAD3;--card:#FBF7EC;--ink:#3E2E1F;--ink2:#5E4D3B;--muted:#7A6A57;--line:#E2D1AC;--line2:#D3BE95;--olive:#8C2F45;--olive2:#7A2639;--olive-soft:#F6E1E4;--saffron:#E8A33D;--saffron-soft:#FBEBD0;--rust:#B8651E;--rose:#F6D9D2;--bad:#9A3B2A;--bad-soft:#F6DDD5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);font-family:Jost,system-ui,sans-serif;color:var(--ink);font-size:15px;line-height:1.5;font-weight:400}
+a{color:var(--ink)}
+.serif{font-family:"Cormorant Garamond",Georgia,serif}
+.wrap{min-height:100vh;display:flex;flex-wrap:wrap}
+nav{flex:1 1 200px;max-width:232px;padding:26px 16px;border-right:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;gap:4px}
+.brand{margin:0;font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:30px;padding:0 12px 22px;letter-spacing:.02em}
+.brand em{color:var(--olive);font-style:italic}
+.nav{display:block;padding:10px 14px;border-radius:999px;color:var(--ink2);text-decoration:none;font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+.nav:hover{background:var(--paper)}
+.nav.on{background:var(--olive-soft);color:var(--olive2);font-weight:500}
+main{flex:999 1 560px;min-width:0;padding:32px 40px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.col{flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:18px}
+aside.side{flex:1 1 340px;max-width:440px;display:flex;flex-direction:column;gap:14px}
+h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:500;font-size:40px;line-height:1.1;margin:6px 0 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;box-shadow:0 1px 0 rgba(46,42,37,.03)}
+.card-title{margin:0 0 10px;font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;font-weight:500}
+.h,.cap{font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.22em;margin:0}
+.tag{display:inline-flex;align-items:center;height:24px;padding:0 11px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:12px;font-weight:500;color:var(--ink2);white-space:nowrap}
+.tag.dark{background:var(--olive);border-color:var(--olive);color:var(--paper)}
+.tag.live{background:var(--olive-soft);border-color:#CBD5BD;color:var(--olive2)}
+.tag.warn{background:var(--saffron-soft);border-color:#F1D3A0;color:var(--rust)}
+.tag.bad{background:var(--bad-soft);border-color:#EDC3B7;color:var(--bad)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:44px;padding:0 22px;border-radius:999px;border:1px solid var(--line2);background:transparent;color:var(--ink);font-family:Jost,system-ui,sans-serif;font-weight:500;font-size:12px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;text-decoration:none;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,background .3s}
+.btn:hover{transform:translateY(-1px);border-color:var(--olive)}
+.btn.pri{background:var(--olive);border-color:var(--olive);color:var(--paper)}
+.btn.pri:hover{background:var(--olive2);box-shadow:0 12px 26px rgba(86,100,74,.25)}
+.btn.big{height:50px;padding:0 24px}
+.btn:disabled{opacity:.5;cursor:default;transform:none}
+.btn:focus-visible{outline:2px solid var(--saffron);outline-offset:2px}
+.step{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.step:first-of-type{border-top:0}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-size:11px;color:var(--muted);font-weight:500;letter-spacing:.16em;text-transform:uppercase;padding:8px 10px;border-bottom:1px solid var(--line)}
+.tbl td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.tbl tr.rec td{background:#F7F9F2}
+.muted{color:var(--muted)}
+.bubble{align-self:flex-end;max-width:80%;background:var(--olive);color:var(--paper);border-radius:18px 18px 4px 18px;padding:12px 18px}
+.line{padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.line:first-child{border-top:0}
+.who{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.16em}
+.en{color:var(--muted);font-style:italic;margin-top:2px}
+.linkrow{display:flex;gap:8px;margin-top:10px;align-items:center}
+.linkrow span{font-size:13px;font-weight:500;width:84px;flex:none}
+.linkrow input{flex:1;min-width:0;height:36px;padding:0 12px;border:1px solid var(--line2);border-radius:999px;font:inherit;font-size:12px;background:var(--paper);color:var(--ink)}
+.linkrow .btn{height:36px;padding:0 14px;font-size:11px}
+textarea{width:100%;min-height:76px;padding:14px 16px;border:1px solid var(--line2);border-radius:14px;font:inherit;resize:vertical;background:var(--paper);color:var(--ink)}
+textarea:focus,input:focus{outline:2px solid var(--olive-soft);border-color:var(--olive)}
+.reply{display:flex;gap:10px;align-items:center}
+.reply input{flex:1;height:50px;padding:0 18px;border:1px solid var(--line2);border-radius:999px;font:inherit;min-width:0;background:var(--card)}
+.banner{background:var(--bad-soft);border:1px solid #EDC3B7;color:var(--bad);border-radius:14px;padding:12px 16px;font-weight:500}
+.reco{margin:14px 0 0;padding:14px 16px;border-radius:14px;background:var(--olive-soft);color:var(--olive2)}
+.reco b{font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;font-weight:600;display:block;color:var(--ink)}
+.cost{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line)}
+.cost:first-child{border-top:0}
+.rule{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13px;padding:5px 0}
+.rule code{font-size:11px}
+.feed{list-style:none;margin:0;padding:0}
+.feed li{display:flex;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.feed li:first-child{border-top:0}
+.feed time{flex:none;width:44px;color:var(--muted);font-size:12px;padding-top:2px}
+.feed .dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--line2);margin-top:7px}
+.feed .good .dot{background:var(--olive)}.feed .ask .dot{background:var(--saffron)}.feed .warn .dot{background:var(--bad)}
+.feed .good span:last-child{font-weight:500}
+.linkbtn{background:none;border:0;padding:0;font:inherit;font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:var(--olive2)}
+.hidden{display:none!important}
+.scrim{position:fixed;inset:0;background:rgba(46,42,37,.35);z-index:10;animation:fade .25s}
+.sheet{position:fixed;top:0;right:0;bottom:0;width:min(560px,100%);background:var(--card);box-shadow:-12px 0 40px rgba(46,42,37,.18);display:flex;flex-direction:column;z-index:11;animation:slide .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes slide{from{transform:translateX(40px);opacity:0}}@keyframes fade{from{opacity:0}}
+.sheet-head{padding:26px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.sheet-head h1{font-size:32px}
+.sheet-body{flex:1;overflow:auto;padding:22px 28px;display:flex;flex-direction:column;gap:22px}
+.sheet-foot{padding:16px 28px 26px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.sheet .line2{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.flagnote{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:var(--saffron-soft);color:#7A4A14;font-size:14px}
+.close{display:inline-flex;width:40px;height:40px;align-items:center;justify-content:center;border-radius:999px;font-size:22px;color:var(--ink2);background:none;border:1px solid var(--line);cursor:pointer}
+@media (max-width:640px){nav{flex-direction:row;max-width:none;flex-basis:100%;padding:12px;border-right:0;border-bottom:1px solid var(--line);align-items:center;overflow-x:auto}.brand{padding:0 12px 0 4px;font-size:24px}main{padding:16px}h1{font-size:32px}.sheet-head,.sheet-body,.sheet-foot{padding-left:16px;padding-right:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <p class="brand">Mil<em>a</em>n</p>
+  <a class="nav" href="/app">Home</a><a class="nav on" href="/vendors">Vendors</a>
+</nav>
+<main>
+<section class="col">
+  <div>
+    <span class="muted" style="font-size:14px" id="wedLine"></span>
+    <h1>Vendors</h1>
+  </div>
+  <div class="card">
+    <div style="overflow-x:auto">
+      <table class="tbl">
+        <thead><tr><th>Vendor</th><th>For</th><th>Quote</th><th>Status</th><th>Last contact</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <p class="card-title" style="margin-bottom:6px">Activity</p>
+    <ul class="feed" id="feed"></ul>
+  </div>
+</section>
+
+<aside class="side">
+  <div class="card" id="detail"></div>
+</aside>
+</main>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const rupees = (n) => '₹' + Number(n).toLocaleString('en-IN');
+const tag = (text, kind = '') => `<span class="tag${kind ? ' ' + kind : ''}">${esc(text)}</span>`;
+const time = (ms) => new Date(ms).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+let S = null;
+let selected = 'sharma';
+let lastKey = '';
+
+// Where each vendor stands, worked out from the job, its call and the booking decision.
+function statusOf(s, v) {
+  const c = s.calls[v.id], d = s.decision, r = c?.result;
+  const cb = s.change?.vendorId === v.id ? s.change : null;
+  if (d?.vendorId === v.id && d.status === 'approved') {
+    const total = cb?.decision?.status === 'approved' ? cb.decision.now.total : d.total;
+    return { label: 'Confirmed', kind: 'dark', quote: rupees(total) };
+  }
+  if (d?.vendorId === v.id && d.status === 'pending') return { label: 'Needs your approval', kind: 'warn', quote: rupees(d.total) };
+  if (!c) return { label: 'Not contacted', kind: '', quote: '—' };
+  if (c.status === 'live') return { label: 'On a call', kind: 'live', quote: '—' };
+  if (c.status === 'ringing') return { label: 'Calling', kind: 'warn', quote: '—' };
+  if (c.status === 'queued' || c.status === 'summarizing') return { label: 'Waiting', kind: '', quote: '—' };
+  if (r?.price_per_plate) {
+    const over = r.price_per_plate > s.rules.flags.max_price_per_plate.value;
+    return { label: over ? 'Over budget' : 'Quote in', kind: over ? 'bad' : '', quote: `${rupees(r.price_per_plate)} a plate` };
+  }
+  return { label: 'No quote', kind: 'bad', quote: '—' };
+}
+
+function lastContact(c) {
+  if (!c?.startedAt) return '—';
+  if (c.status === 'live') return 'Now';
+  return `Call, today ${time(c.endedAt || c.startedAt)}`;
+}
+
+function render(s) {
+  S = s;
+  $('wedLine').textContent = `${s.wedding.couple} · ${s.wedding.dateShort} · ${s.wedding.city} · ${s.guests} guests`;
+  const key = JSON.stringify([s.calls, s.decision, s.change, s.activity.length, selected, s.rules.flags.max_price_per_plate]);
+  if (key === lastKey) return;
+  lastKey = key;
+
+  $('rows').innerHTML = s.vendors.map((v) => {
+    const st = statusOf(s, v);
+    return `<tr data-v="${v.id}" style="cursor:pointer${selected === v.id ? ';background:#F7F9F2' : ''}"><td><b>${esc(v.name)}</b>${v.practice ? ' <span class="muted" style="font-size:12px">practice</span>' : ''}</td><td>Food</td><td>${st.quote}</td><td>${tag(st.label, st.kind)}</td><td class="muted">${esc(lastContact(s.calls[v.id]))}</td></tr>`;
+  }).join('');
+  $('rows').querySelectorAll('tr').forEach((tr) => (tr.onclick = () => { selected = tr.dataset.v; lastKey = ''; render(S); }));
+
+  const v = s.vendors.find((x) => x.id === selected);
+  const st = statusOf(s, v);
+  const c = s.calls[v.id], r = c?.result, d = s.decision;
+  let deal = '';
+  if (d?.vendorId === v.id && (d.status === 'approved' || d.status === 'pending')) {
+    const cd = s.change?.vendorId === v.id && s.change.decision?.status === 'approved' ? s.change.decision : null;
+    const g = cd ? cd.now.guests : d.guests, p = cd ? cd.now.price : d.pricePerPlate, t = cd ? cd.now.total : d.total;
+    deal = `<div class="line2 cost" style="border-top:0"><span>${g} guests × ${rupees(p)}</span><b>${rupees(t)}</b></div>` +
+      `<div class="cost"><span>Includes</span><span>${esc(r?.includes || '—')}</span></div>` +
+      `<div class="cost"><span>Advance</span><span>${esc(d.advance || '—')}</span></div>`;
+  } else if (r) {
+    deal = `<div class="cost" style="border-top:0"><span>Quote</span><b>${r.price_per_plate ? rupees(r.price_per_plate) + ' a plate' : '—'}</b></div>` +
+      `<div class="cost"><span>${esc(s.wedding.dateShort)}</span><span>${esc(r.date_available)}</span></div>` +
+      `<div class="cost"><span>Includes</span><span>${esc(r.includes)}</span></div>` +
+      `<div class="cost"><span>Advance</span><span>${esc(r.advance)}</span></div>`;
+  } else deal = '<p class="muted" style="margin:0">No quote yet.</p>';
+
+  const convo = [];
+  if (c?.startedAt) convo.push(`<div class="cost" style="border-top:0;display:block"><b>Call, ${time(c.startedAt)}</b><div class="muted">${esc(r?.summary || c.endReason || (c.status === 'live' ? 'On the call now' : 'Call finished'))}</div></div>`);
+  if (s.change?.vendorId === v.id && s.change.call.startedAt) { const cc = s.change.call; convo.push(`<div class="cost" style="display:block"><b>Call back, ${time(cc.startedAt)}</b><div class="muted">${esc(cc.result?.summary || 'On the call now')}</div></div>`); }
+
+  $('detail').innerHTML =
+    `<div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><div><h1 style="font-size:30px;margin:0">${esc(v.name)}</h1><p class="muted" style="margin:2px 0 0">Food, Wedding. ${esc(v.area)}, ${esc(s.wedding.city)}</p></div>${tag(st.label, st.kind)}</div>` +
+    `<p class="h" style="margin:20px 0 6px">The deal</p>${deal}` +
+    `<p class="h" style="margin:20px 0 6px">Conversations</p>${convo.join('') || '<p class="muted" style="margin:0">No calls yet.</p>'}` +
+    (st.label === 'Needs your approval' ? `<div style="margin-top:18px"><a class="btn pri" href="/app">Review and approve on your dashboard</a></div>` : '');
+
+  const feed = s.activity.slice().reverse();
+  $('feed').innerHTML = feed.length
+    ? feed.map((a) => `<li class="${esc(a.kind)}"><time>${time(a.at)}</time><span class="dot"></span><span>${esc(a.text)}</span></li>`).join('')
+    : '<li><span class="muted">Nothing yet. Give Milan a job on the Job screen.</span></li>';
+}
+
+async function poll() {
+  try { render(await (await fetch('/api/state')).json()); } catch {}
+  setTimeout(poll, 1500);
+}
+poll();
+</script>
+</body>
+</html>

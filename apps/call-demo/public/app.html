@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Milan · Your wedding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/milan.css">
+<style>
+.shell{display:grid;grid-template-columns:252px minmax(0,1fr);min-height:100vh}
+
+/* Rail */
+.rail{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:6px;padding:24px 18px;border-right:1px solid var(--line);background:linear-gradient(180deg,var(--paper-2),var(--paper-3))}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--head);padding:0 8px 22px}
+.brand span{font-family:"Cormorant Garamond",serif;font-size:30px;font-weight:500;letter-spacing:.02em}
+.nav{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:999px;color:var(--ink-2);text-decoration:none;font-size:12px;letter-spacing:.2em;text-transform:uppercase;transition:background .3s}
+.nav:hover{background:rgba(251,247,236,.8)}
+.nav.on{background:var(--card);color:var(--rose-d);box-shadow:inset 0 0 0 1px var(--line)}
+.nav svg{flex:none}
+.mini{margin-top:auto;position:relative;text-align:center;padding:26px 16px 18px;background:var(--card);border:1px solid var(--line);border-radius:120px 120px 18px 18px/60px 60px 18px 18px}
+.mini::before{content:"";position:absolute;inset:6px;border:1px solid var(--line-2);border-radius:114px 114px 13px 13px/54px 54px 13px 13px;pointer-events:none}
+.mini .names{font-family:"Great Vibes",cursive;font-size:32px;color:var(--rose-d);line-height:1.1}
+.mini .days{font-family:"Cormorant Garamond",serif;font-size:46px;line-height:1;color:var(--head);margin-top:6px}
+.mini-links{display:flex;justify-content:center;gap:14px;margin-top:12px;font-size:13px}
+
+/* Main */
+main{padding:26px 36px 60px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:22px}
+.top h1{font-size:clamp(34px,3.6vw,48px)}
+.pills{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.banner{display:flex;gap:12px;align-items:center;padding:14px 18px;border-radius:16px;background:var(--rose-soft);border:1px solid var(--rose-l);color:var(--rose-d);margin-bottom:18px}
+
+.row{display:grid;gap:18px;margin-bottom:18px}
+.hero{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+.kpis{grid-template-columns:repeat(4,minmax(0,1fr))}
+.body{grid-template-columns:minmax(0,1.7fr) minmax(300px,1fr);align-items:start}
+
+/* Talk to Milan */
+.talk{display:grid;grid-template-columns:auto minmax(0,1fr);gap:30px;align-items:center;padding:34px 34px 28px;background:radial-gradient(120% 90% at 0% 0%,#FFF8E8 0,var(--card) 55%)}
+.talk .left{display:flex;flex-direction:column;align-items:center;gap:12px;padding:10px 6px 0 14px}
+.talk .hint{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-align:center;min-height:16px}
+.talk h2{font-size:clamp(26px,2.4vw,34px);margin:6px 0 12px}
+.convo{display:flex;flex-direction:column;gap:10px;margin:0 0 14px;min-height:0}
+.you{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:20px;color:var(--ink-2);line-height:1.3}
+.you::before{content:"You  ";font-family:Jost,sans-serif;font-style:normal;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+.milan{display:flex;gap:10px;align-items:flex-start;font-size:15.5px;color:var(--ink);line-height:1.5}
+.milan .m{flex:none;width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF4D6,#C99A4A 60%,#8C5A22);margin-top:1px}
+.typing i{display:inline-block;width:6px;height:6px;margin-right:4px;border-radius:50%;background:var(--gold);animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+.sugs{display:flex;gap:8px;flex-wrap:wrap}
+.sugs .chip{font-size:13.5px;min-height:36px;padding:6px 14px}
+.ask{display:flex;gap:8px;margin-top:14px}
+.ask .input{height:46px;border-radius:999px}
+.send{flex:none;width:46px;height:46px;border-radius:50%;border:0;background:var(--rose-d);color:#FBEFD6;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 1px rgba(246,214,150,.5)}
+.send:disabled{opacity:.5}
+
+/* Needs you */
+.needs{display:flex;flex-direction:column;padding:28px 28px 24px}
+.needs.on{background:linear-gradient(160deg,#FBEDEF 0,var(--card) 60%);border-color:var(--rose-l)}
+.needs h3{font-size:30px;margin:8px 0 6px}
+.money{display:flex;flex-direction:column;margin:10px 0 0}
+.money div{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line-2);font-size:14.5px}
+.money div:first-child{border-top:0}
+.money b{font-weight:500}
+.calm{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;padding:8px 0}
+
+/* KPI tiles */
+.kpi{padding:20px 22px 18px}
+.kpi .v{font-family:"Cormorant Garamond",serif;font-size:40px;line-height:1;color:var(--head);margin:12px 0 4px}
+.kpi .v small{font-size:20px;color:var(--muted)}
+.kpi p{margin:0;font-size:13.5px;color:var(--muted)}
+.bar{height:6px;border-radius:999px;background:var(--paper-3);margin-top:12px;overflow:hidden;box-shadow:inset 0 0 0 1px var(--line-2)}
+.bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold),var(--gold-l));transition:width 1s var(--ease)}
+.bar i.over{background:linear-gradient(90deg,var(--rose-d),var(--rose))}
+
+/* Job */
+.job{padding:28px 30px}
+.jobhead{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap}
+.jobhead h2{font-size:clamp(26px,2.4vw,32px);margin-top:6px;max-width:560px}
+.stepper{display:grid;grid-template-columns:repeat(4,1fr);margin:24px 0 8px}
+.sp{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;font-size:12.5px;color:var(--muted);padding:0 6px}
+.sp::before{content:"";position:absolute;top:9px;left:calc(-50% + 14px);right:calc(50% + 14px);height:2px;background:var(--line-2);border-radius:2px}
+.sp:first-child::before{display:none}
+.sp .b{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--gold-l);background:var(--card);display:flex;align-items:center;justify-content:center;font-size:11px;color:#FFF;transition:all .5s var(--ease)}
+.sp.done .b{background:var(--gold);border-color:var(--gold)}
+.sp.done::before,.sp.now::before{background:var(--gold-l)}
+.sp.now{color:var(--head)}
+.sp.now .b{border-color:var(--rose);box-shadow:0 0 0 5px rgba(180,75,99,.14);animation:pulse 1.8s ease-in-out infinite}
+.sp.ask .b{background:var(--rose-d);border-color:var(--rose-d)}
+.sp.ask{color:var(--rose-d)}
+.sp small{display:block;font-size:11.5px;color:var(--muted)}
+.sec{margin-top:24px}
+.sec>.cap{margin-bottom:10px}
+.call{border:1px solid var(--line-2);border-radius:16px;background:var(--card-2);margin-bottom:10px;overflow:hidden;transition:border-color .3s,box-shadow .3s}
+.call.live{border-color:#C3D2B3;box-shadow:0 0 0 4px rgba(110,140,90,.1)}
+.callrow{display:flex;align-items:center;gap:14px;width:100%;padding:14px 16px;background:none;border:0;cursor:pointer;text-align:left}
+.av{flex:none;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",serif;font-size:19px;font-weight:600;color:var(--gold-d);background:#F4E7C8;box-shadow:0 0 0 1px var(--gold-l),0 0 0 4px var(--card-2),0 0 0 5px var(--line-2)}
+.call .who{flex:1;min-width:0}
+.call .who b{display:block;font-weight:500;font-size:15.5px}
+.call .who span{font-size:13px;color:var(--muted)}
+.call .price{font-family:"Cormorant Garamond",serif;font-size:24px;color:var(--head);white-space:nowrap}
+.call .chev{flex:none;color:var(--muted);transition:transform .3s}
+.call.open .chev{transform:rotate(180deg)}
+.tr{padding:4px 18px 14px 72px;max-height:340px;overflow:auto}
+.ln{padding:9px 0;border-top:1px dashed var(--line-2);font-size:14.5px}
+.ln:first-child{border-top:0}
+.ln .s{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.ln.milan .s{color:var(--gold-d)}
+.ln .en{color:var(--muted);font-style:italic;font-size:13.5px;margin-top:2px}
+.quote{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:17px;color:var(--ink-2);padding:0 16px 14px 72px;margin:-4px 0 0}
+table.cmp{width:100%;border-collapse:separate;border-spacing:0;font-size:14.5px}
+.cmp th{text-align:left;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);font-weight:400;padding:8px 12px;border-bottom:1px solid var(--line)}
+.cmp td{padding:14px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+.cmp tr.pick td{background:#FBF1F1}
+.cmp tr.pick td:first-child{box-shadow:inset 3px 0 0 var(--rose)}
+.cmp .p{font-family:"Cormorant Garamond",serif;font-size:21px;color:var(--head)}
+.reco{display:flex;gap:16px;align-items:flex-start;margin-top:16px;padding:18px 20px;border-radius:18px;background:var(--paper-2);border:1px solid var(--line)}
+.reco .script{font-size:30px;color:var(--gold-d);line-height:1;flex:none}
+.booked{display:flex;gap:16px;align-items:center;padding:18px 20px;border-radius:18px;background:var(--sage-l);border:1px solid #C3D2B3;color:#33472A;margin-top:16px}
+.seal{flex:none;width:52px;height:52px;border-radius:50%;background:var(--sage);color:#FFF;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--sage-l),0 0 0 5px #B5C7A3}
+.change{margin-top:24px;padding:20px 22px;border-radius:18px;border:1px solid var(--line);background:var(--paper-2)}
+.change h3{font-size:24px}
+.steps2 div{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:9px 0;border-top:1px solid var(--line-2);font-size:14.5px}
+.steps2 div:first-child{border-top:0}
+
+/* Empty job state */
+.ideas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
+.idea{position:relative;text-align:center;padding:30px 16px 20px;background:var(--card-2);border:1px solid var(--line);border-radius:90px 90px 16px 16px/50px 50px 16px 16px;cursor:pointer;transition:transform .4s var(--ease),box-shadow .4s}
+.idea:hover{transform:translateY(-4px);box-shadow:0 18px 34px -18px rgba(90,60,25,.35)}
+.idea[aria-disabled="true"]{cursor:default;opacity:.7}.idea[aria-disabled="true"]:hover{transform:none;box-shadow:none}
+.idea .n{font-family:"Great Vibes",cursive;font-size:30px;color:var(--gold);line-height:1}
+.idea h3{font-size:22px;margin:6px 0 4px}
+.idea p{margin:0;font-size:13.5px;color:var(--muted)}
+
+/* Right column */
+.side{display:flex;flex-direction:column;gap:18px}
+.fn{list-style:none;margin:12px 0 0;padding:0}
+.fn li{position:relative;display:flex;gap:14px;padding:0 0 16px 0}
+.fn li:last-child{padding-bottom:0}
+.fn li::before{content:"";position:absolute;left:8px;top:20px;bottom:0;width:1px;background:var(--line)}
+.fn li:last-child::before{display:none}
+.fn .d{flex:none;width:17px;height:17px;border-radius:50%;margin-top:3px;background:var(--paper-2);border:1.5px solid var(--gold-l)}
+.fn li.main .d{background:var(--rose-d);border-color:var(--rose-d);box-shadow:0 0 0 4px rgba(140,47,69,.12)}
+.fn b{font-weight:500;display:block}
+.fn span{font-size:13px;color:var(--muted)}
+.feed{list-style:none;margin:10px 0 0;padding:0;max-height:360px;overflow:auto}
+.feed li{display:flex;gap:10px;padding:9px 0;border-top:1px solid var(--line-2);font-size:14px;animation:fadein .6s}
+.feed li:first-child{border-top:0}
+.feed time{flex:none;width:44px;color:var(--muted);font-size:12px;padding-top:2px}
+.feed .dt{flex:none;width:8px;height:8px;border-radius:50%;background:var(--line);margin-top:7px}
+.feed .good .dt{background:var(--sage)}.feed .ask .dt{background:var(--rose)}.feed .warn .dt{background:var(--amber)}
+details.bts summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.bts summary::-webkit-details-marker{display:none}
+details.bts[open] summary .chev{transform:rotate(180deg)}
+.rule{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:13.5px;padding:6px 0}
+.rule code{font-size:11px;color:var(--muted)}
+.linkrow{display:flex;gap:8px;margin-top:8px;align-items:center}
+.linkrow input{flex:1;min-width:0;height:36px;padding:0 12px;border:1px solid var(--line);border-radius:999px;font:inherit;font-size:12px;background:var(--paper-2);color:var(--ink)}
+
+/* Approve sheet */
+.scrim{position:fixed;inset:0;background:rgba(46,30,15,.35);backdrop-filter:blur(2px);z-index:20;animation:fadein .25s}
+.sheet{position:fixed;top:0;right:0;bottom:0;width:min(540px,100%);background:var(--paper-2);box-shadow:-20px 0 60px rgba(46,30,15,.25);display:flex;flex-direction:column;z-index:21;animation:slide .4s var(--ease)}
+.sheet-head{padding:28px 30px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.sheet-head h2{font-size:34px;margin-top:6px}
+.sheet-body{flex:1;overflow:auto;padding:22px 30px;display:flex;flex-direction:column;gap:22px}
+.sheet-body p{margin:0}
+.sheet-foot{padding:18px 30px 28px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.flagnote{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:14px;background:#F4E7C8;border:1px solid var(--gold-l);color:#5E4415;font-size:14px}
+.close{flex:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--card);font-size:22px;cursor:pointer;color:var(--ink-2)}
+@keyframes slide{from{transform:translateX(50px);opacity:0}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(180,75,99,.14)}50%{box-shadow:0 0 0 8px rgba(180,75,99,.05)}}
+
+/* Petals when something is booked */
+.petal{position:fixed;top:-30px;z-index:40;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(var(--r));opacity:.2}}
+
+@media (max-width:1180px){.hero{grid-template-columns:minmax(0,1fr)}.body{grid-template-columns:minmax(0,1fr)}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:860px){
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .talk{grid-template-columns:minmax(0,1fr)!important}
+  .sugs .chip{max-width:100%}
+  .rail{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px 16px;border-right:0;border-bottom:1px solid var(--line)}
+  .brand{padding:0 8px 0 0}.brand span{font-size:24px}
+  .mini{display:none}
+  main{padding:18px 16px 40px}
+  .talk{grid-template-columns:1fr;padding:26px 20px 22px;text-align:left}
+  .talk .left{flex-direction:row;padding:0}
+  .ideas{grid-template-columns:1fr}
+  .tr,.quote{padding-left:18px}
+  .job{padding:22px 18px}
+  .stepper .sp small{display:none}
+}
+@media (max-width:520px){.kpis{grid-template-columns:1fr 1fr}.kpi .v{font-size:32px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="lp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#D9557E"/><stop offset=".55" stop-color="#F3A9BF"/><stop offset="1" stop-color="#FCEAF0"/></linearGradient>
+  <symbol id="lotus" overflow="visible"><path d="M0 0 Q4 30 2 60" stroke="#4F7A48" stroke-width="3" fill="none"/><g fill="url(#lp)" stroke="#C94C72" stroke-width=".8"><path transform="rotate(-62)" d="M0 0 Q-11 -20 0 -40 Q11 -20 0 0Z"/><path transform="rotate(62)" d="M0 0 Q-11 -20 0 -40 Q11 -20 0 0Z"/><path transform="rotate(-38)" d="M0 0 Q-13 -24 0 -50 Q13 -24 0 0Z"/><path transform="rotate(38)" d="M0 0 Q-13 -24 0 -50 Q13 -24 0 0Z"/><path transform="rotate(-16)" d="M0 0 Q-14 -27 0 -56 Q14 -27 0 0Z"/><path transform="rotate(16)" d="M0 0 Q-14 -27 0 -56 Q14 -27 0 0Z"/><path d="M0 2 Q-15 -28 0 -60 Q15 -28 0 2Z"/></g><path d="M-16 -2 Q0 8 16 -2" stroke="#E7C24F" stroke-width="3" fill="none" stroke-linecap="round"/></symbol>
+  <symbol id="orn" viewBox="0 0 200 24"><path d="M6 12 H72 M128 12 H194" stroke="#C3A36A" stroke-width="1"/><circle cx="4" cy="12" r="2" fill="#C3A36A"/><circle cx="196" cy="12" r="2" fill="#C3A36A"/><path d="M78 12 l6 -4 6 4 -6 4Z M110 12 l6 -4 6 4 -6 4Z" fill="#C3A36A"/><g transform="translate(100 18)" fill="#E7A2AD" stroke="#B44B63" stroke-width=".7"><path transform="rotate(-40)" d="M0 0 Q-4 -7 0 -13 Q4 -7 0 0Z"/><path transform="rotate(40)" d="M0 0 Q-4 -7 0 -13 Q4 -7 0 0Z"/><path d="M0 0 Q-5 -8 0 -16 Q5 -8 0 0Z"/></g></symbol>
+  <symbol id="chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+</defs></svg>
+
+<div class="shell">
+<aside class="rail">
+  <a class="brand" href="/"><svg width="32" height="28" viewBox="-30 -64 60 66" aria-hidden="true"><use href="#lotus"/></svg><span>Milan</span></a>
+  <a class="nav on" href="/app"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 11l8-7 8 7v9H4z"/></svg>Home</a>
+  <a class="nav" href="/vendors"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.8c1.6.8 2.7 2.6 3 5.2"/></svg>Vendors</a>
+  <a class="nav" href="/start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>Wedding details</a>
+  <div class="mini" id="mini"></div>
+</aside>
+
+<main>
+  <header class="top">
+    <div>
+      <p class="cap" id="wedLine"></p>
+      <h1 id="greet" style="margin-top:8px"></h1>
+    </div>
+    <div class="pills">
+      <span id="callsPill"></span><span id="rulesPill"></span>
+      <button class="btn sm" id="soundBtn" type="button" aria-pressed="true">Voice on</button>
+    </div>
+  </header>
+
+  <div class="banner hidden" id="killBanner"><b>Calls are paused.</b><span><code>calls_enabled</code> is off in Flagsmith, so Milan has stopped every call. Turn it back on and Milan carries on where it left off.</span></div>
+
+  <section class="row hero">
+    <div class="card arch talk" id="talk">
+      <div class="left"><div id="orbSlot"></div><p class="hint" id="hint">Tap and speak</p></div>
+      <div>
+        <p class="cap">Talk to Milan</p>
+        <h2 id="prompt"></h2>
+        <div class="convo" id="convo"></div>
+        <div class="sugs" id="sugs"></div>
+        <form class="ask" id="askForm" autocomplete="off">
+          <label for="askInput" class="sr">Type to Milan</label>
+          <input class="input" id="askInput" placeholder="Or type to Milan…">
+          <button class="send" id="sendBtn" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </form>
+      </div>
+    </div>
+    <div class="card needs" id="needs"></div>
+  </section>
+
+  <section class="row kpis" id="kpis"></section>
+
+  <section class="row body">
+    <div class="card job" id="job"></div>
+    <div class="side">
+      <div class="card"><p class="cap">Your functions</p><ul class="fn" id="fn"></ul></div>
+      <div class="card"><p class="cap">What Milan did</p><ul class="feed" id="feed"></ul></div>
+      <details class="card bts">
+        <summary><span><p class="cap">Behind the scenes</p><span class="muted" style="font-size:13.5px">Phone links and Milan's rules</span></span><svg class="chev" width="18" height="18"><use href="#chev"/></svg></summary>
+        <div style="margin-top:14px">
+          <p style="margin:0;font-size:14px" class="muted">Open the link on a phone to answer as <b>Sharma Caterers</b>. Annapurna and Gupta are practice vendors that answer by themselves.</p>
+          <div id="links"></div>
+          <p class="muted hidden" style="font-size:13px;margin:8px 0 0" id="linkWarn">These links only work on this laptop. Open the dashboard through your https tunnel link so they work on a phone.</p>
+          <p class="cap" style="margin:18px 0 6px">Rules from Flagsmith</p>
+          <div id="rules"></div>
+          <p class="muted" style="font-size:12.5px;margin:6px 0 0" id="rulesSource"></p>
+          <p style="margin:14px 0 0;font-size:13.5px"><button class="link" id="resetBtn">Start a new job</button> · <button class="link" id="resetAllBtn">Start over from the setup</button></p>
+        </div>
+      </details>
+    </div>
+  </section>
+</main>
+</div>
+
+<div class="scrim hidden" id="scrim"></div>
+<aside class="sheet hidden" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet-head"><div><p class="cap" style="color:var(--rose-d)">Needs your approval</p><h2 id="sheetTitle"></h2></div><button class="close" id="closeSheet" aria-label="Close">×</button></div>
+  <div class="sheet-body">
+    <section><p class="cap" style="margin-bottom:8px" id="sheetFoundHead"></p><p id="sheetFound"></p></section>
+    <section><p class="cap" style="margin-bottom:4px">Cost</p><div class="money" id="sheetCost"></div></section>
+    <section><p class="cap" style="margin-bottom:8px">Why Milan is asking</p><div class="flagnote" id="sheetWhy"></div></section>
+    <section><p class="cap" style="margin-bottom:8px">If you approve</p><p class="muted" id="sheetIf"></p></section>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn pri" id="approveBtn"></button>
+    <button class="btn" id="declineBtn">Decline</button>
+  </div>
+</aside>
+
+<script src="/static/voice.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const inr = (n) => '₹' + Number(n).toLocaleString('en-IN');
+const tag = (t, k = '', dot = false) => `<span class="tag ${k}">${dot ? '<span class="dot"></span>' : ''}${esc(t)}</span>`;
+const initials = (name) => name.split(' ').map((w) => w[0]).join('').slice(0, 2);
+const chev = '<svg class="chev" width="18" height="18"><use href="#chev"/></svg>';
+let S = null, sound = true, busy = false, sheetFor = null;
+let openCalls = {}, pending = null; // pending = the family's message while Milan is thinking
+const seen = { decision: undefined, change: undefined };
+const last = {};
+function set(id, html) { if (last[id] !== html) { last[id] = html; $(id).innerHTML = html; } }
+const flag = (n) => S.rules.flags[n].value;
+
+// ---------- Talk to Milan ----------
+$('orbSlot').innerHTML = orbHTML('orb', 'Talk to Milan');
+function setOrb(state, lvl = 0) {
+  $('orb').dataset.state = state;
+  $('orb').style.setProperty('--lvl', lvl.toFixed(3));
+  $('hint').textContent = { idle: 'Tap and speak', listening: 'Listening…', thinking: 'Milan is on it…', speaking: 'Milan is speaking' }[state];
+}
+$('orb').onclick = toggleTalk;
+document.addEventListener('keydown', (e) => {
+  if (e.code === 'Space' && !/INPUT|TEXTAREA|BUTTON|SUMMARY/.test(document.activeElement.tagName) && !sheetFor) { e.preventDefault(); toggleTalk(); }
+  if (e.key === 'Escape') closeSheet();
+});
+async function toggleTalk() {
+  if (busy) return;
+  if (MilanVoice.recording) return finishTalk();
+  try {
+    await MilanVoice.start({ level: (l) => setOrb('listening', l), autoStop: finishTalk });
+    setOrb('listening');
+  } catch { toast('Allow microphone access to talk to Milan, or type below.'); }
+}
+async function finishTalk() {
+  if (!MilanVoice.recording) return;
+  const { wav, spoke } = MilanVoice.stop();
+  if (!spoke) return setOrb('idle');
+  send('/api/voice', wav, 'audio/wav');
+}
+$('askForm').onsubmit = (e) => {
+  e.preventDefault();
+  const text = $('askInput').value.trim();
+  if (!text || busy) return;
+  $('askInput').value = '';
+  ask(text);
+};
+function ask(text) { MilanVoice.unlock().catch(() => {}); send('/api/ask', JSON.stringify({ text }), 'application/json', text); }
+
+async function send(url, body, type, typed) {
+  busy = true;
+  pending = { you: typed || '…' };
+  renderConvo();
+  setOrb('thinking');
+  $('sendBtn').disabled = true;
+  try {
+    const res = await fetch(url, { method: 'POST', headers: { 'content-type': type }, body });
+    const d = await res.json();
+    if (!res.ok) throw new Error(d.error);
+    pending = null;
+    if (d.state) render(d.state);
+    if (!d.state?.chat?.length || d.heard === '') S.chat = [...(S.chat || []), { you: d.heard || '(not heard)', milan: d.reply }];
+    renderConvo();
+    if (d.action === 'start_job') { toast('Milan started a new job'); $('job').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    if (d.action === 'change_guests') toast(`Milan is calling ${S.decision?.vendorName || 'the caterer'} back`);
+    if (d.action === 'approve') petals();
+    if (sound && d.audio) await MilanVoice.play(d.audio, (l) => setOrb('speaking', l));
+  } catch (e) {
+    pending = null;
+    toast(e.message || 'Milan could not hear that. Try again.');
+    renderConvo();
+  }
+  busy = false;
+  $('sendBtn').disabled = false;
+  setOrb('idle');
+}
+
+// Milan speaks up by itself when something needs the family.
+async function announce(text) {
+  if (!sound || busy) return;
+  try {
+    const r = await fetch('/api/say', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ text, language: 'en-IN' }) });
+    const d = await r.json();
+    if (r.ok && !busy) await MilanVoice.play(d.audio, (l) => setOrb('speaking', l));
+  } catch {}
+  if (!busy) setOrb('idle');
+}
+$('soundBtn').onclick = () => {
+  sound = !sound;
+  $('soundBtn').textContent = sound ? 'Voice on' : 'Voice off';
+  $('soundBtn').setAttribute('aria-pressed', sound);
+  if (!sound) MilanVoice.stopPlayback();
+};
+
+function renderConvo() {
+  const items = (S?.chat || []).slice(-2).map((c) => `<div class="you">${esc(c.you)}</div><div class="milan"><span class="m"></span><span>${esc(c.milan)}</span></div>`);
+  if (pending) items.push(`${pending.you !== '…' ? `<div class="you">${esc(pending.you)}</div>` : ''}<div class="milan"><span class="m"></span><span class="typing"><i></i><i></i><i></i></span></div>`);
+  set('convo', items.join(''));
+}
+
+function suggestions() {
+  const d = S.decision, ch = S.change, cd = ch?.decision, w = S.wedding;
+  if (!S.job) return [`Find a veg caterer for ${S.guests} guests under ${inr(S.budgetPerPlate)} a plate`, 'What can you do for me?'];
+  if (cd?.status === 'pending') return ['Approve the new cost', 'Why did the price change?'];
+  if (ch && !cd) return ['How is the call back going?'];
+  if (d?.status === 'pending') return [`Approve ${d.vendorName}`, `Why ${d.vendorName}?`, 'Compare all the quotes'];
+  if (!d) return ['How are the calls going?', 'What have the caterers said so far?'];
+  if (d.status === 'approved' && !ch) return [`The guest count is now ${S.guests + 50}`, "What's pending?"];
+  return ['Give me a summary', "What's booked so far?"];
+}
+function prompt() {
+  const d = S.decision, cd = S.change?.decision;
+  if (cd?.status === 'pending') return 'The new cost is over budget. <em>Approve it?</em>';
+  if (d?.status === 'pending') return `${esc(d.vendorName)} is ready to book. <em>Shall I?</em>`;
+  if (!S.job) return 'What should I take <em>off your plate?</em>';
+  if (!d) return 'I\'m on the phone with <em>your caterers.</em>';
+  return 'Anything changed? <em>Just tell me.</em>';
+}
+
+// ---------- Render ----------
+function render(s) {
+  S = s;
+  const w = s.wedding;
+  const days = Math.max(0, Math.ceil((new Date(`${w.dateISO}T00:00:00`) - new Date().setHours(0, 0, 0, 0)) / 86400000));
+  const hr = new Date().getHours();
+  set('greet', `${hr < 12 ? 'Good morning' : hr < 17 ? 'Good afternoon' : 'Good evening'}, <em>${esc(w.partner1)} &amp; ${esc(w.partner2)}</em>`);
+  set('wedLine', `${esc(w.date)} · ${esc(w.city)} · ${s.guests} guests`);
+  set('mini', `<p class="cap">The wedding of</p><div class="names">${esc(w.partner1)} &amp; ${esc(w.partner2)}</div><svg class="orn" style="width:120px" viewBox="0 0 200 24"><use href="#orn"/></svg><div class="days">${days}</div><p class="muted" style="margin:2px 0 0;font-size:13px">days to go · ${esc(w.dateShort)}</p>`);
+  set('callsPill', flag('calls_enabled') ? tag('Calls on', 'live', true) : tag('Calls paused', 'bad', true));
+  set('rulesPill', s.rules.source === 'flagsmith' ? tag('Flagsmith rules live', 'gold') : tag('Default rules', ''));
+  $('killBanner').classList.toggle('hidden', flag('calls_enabled'));
+  set('prompt', prompt());
+  set('sugs', suggestions().map((t) => `<button class="chip" type="button" data-say="${esc(t)}"><span class="q">“</span>${esc(t)}</button>`).join(''));
+  renderConvo();
+  renderNeeds(s, days);
+  renderKpis(s, days);
+  renderJob(s);
+  renderFunctions(s);
+  renderFeed(s);
+  renderBehind(s);
+  watchForApprovals(s);
+  if (sheetFor === 'initial' && s.decision?.status !== 'pending') closeSheet();
+  if (sheetFor === 'change' && s.change?.decision?.status !== 'pending') closeSheet();
+}
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-say]');
+  if (b && !busy) ask(b.dataset.say);
+});
+
+function pendingItem(s) {
+  const cd = s.change?.decision;
+  if (cd?.status === 'pending') return { which: 'change', title: `${cd.vendorName} for ${cd.now.guests} guests?`, rows: [[`Before · ${cd.before.guests} × ${inr(cd.before.price)}`, inr(cd.before.total)], [`Now · ${cd.now.guests} × ${inr(cd.now.price)}`, `<b>${inr(cd.now.total)}</b>`], ['Over budget by', `<b style="color:var(--rose-d)">${inr(cd.overBy)}</b>`]] };
+  const d = s.decision;
+  if (d?.status === 'pending') {
+    const diff = d.budgetTotal - d.total;
+    return { which: 'initial', title: `Book ${d.vendorName}?`, rows: [[`${d.guests} guests × ${inr(d.pricePerPlate)}`, `<b>${inr(d.total)}</b>`], ['Catering budget', inr(d.budgetTotal)], [diff >= 0 ? 'Under budget by' : 'Over budget by', `<b style="color:${diff >= 0 ? 'var(--sage-d)' : 'var(--rose-d)'}">${inr(Math.abs(diff))}</b>`]] };
+  }
+  return null;
+}
+
+function renderNeeds(s) {
+  const p = pendingItem(s);
+  $('needs').classList.toggle('on', !!p);
+  if (p) {
+    set('needs', `<p class="cap" style="color:var(--rose-d)">Needs you · 1</p><h3>${esc(p.title)}</h3>
+      <p class="muted" style="margin:0;font-size:14px">${p.which === 'change' ? 'The guest count went up, and the new cost is over your catering budget.' : 'Milan compared every quote and picked the best fit.'}</p>
+      <div class="money">${p.rows.map(([a, b]) => `<div><span>${esc(a)}</span><span>${b}</span></div>`).join('')}</div>
+      <div style="display:flex;gap:10px;margin-top:auto;padding-top:18px;flex-wrap:wrap"><button class="btn pri" data-review="${p.which}">Review and approve</button></div>`);
+  } else {
+    const booked = s.decision?.status === 'approved';
+    set('needs', `<p class="cap">Needs you</p><div class="calm"><svg width="54" height="48" viewBox="-30 -64 60 66" aria-hidden="true"><use href="#lotus"/></svg>
+      <h3 style="font-size:26px;margin:4px 0 0">Nothing right now</h3>
+      <p class="muted" style="margin:0;font-size:14px;max-width:290px">${booked ? `${esc(s.decision.vendorName)} is booked. Milan will ask you again before anything goes over budget.` : 'Milan always asks you before booking a vendor or going over budget.'}</p></div>`);
+  }
+}
+document.addEventListener('click', (e) => { const b = e.target.closest('[data-review]'); if (b) openSheet(b.dataset.review); });
+
+function renderKpis(s, days) {
+  const d = s.decision, cd = s.change?.decision;
+  const booked = d?.status === 'approved';
+  const spent = booked ? d.total : 0;
+  const pct = Math.min(100, (spent / s.cateringBudget) * 100);
+  const calls = [...s.vendors.map((v) => s.calls[v.id]), s.change?.call].filter(Boolean);
+  const done = calls.filter((c) => c.status === 'done' && c.transcript?.length).length;
+  const live = calls.filter((c) => c.status === 'live').length;
+  const quotes = s.vendors.filter((v) => s.calls[v.id]?.result?.price_per_plate).length;
+  set('kpis', [
+    `<div class="card kpi"><p class="cap">Days to go</p><div class="v">${days}</div><p>until ${esc(s.wedding.dateShort)}, ${esc(s.wedding.city)}</p></div>`,
+    `<div class="card kpi"><p class="cap">Catering budget</p><div class="v">${booked ? inr(spent) : inr(s.cateringBudget)}</div><p>${booked ? `of ${inr(s.cateringBudget)} · ${spent > s.cateringBudget ? 'over' : 'within'} budget` : `${inr(s.budgetPerPlate)} a plate · nothing booked yet`}</p><div class="bar"><i class="${spent > s.cateringBudget ? 'over' : ''}" style="width:${booked ? pct : 0}%"></i></div></div>`,
+    `<div class="card kpi"><p class="cap">Vendors</p><div class="v">${booked ? 1 : 0}<small> confirmed</small></div><p>${quotes ? `${quotes} quote${quotes > 1 ? 's' : ''} in hand · ${s.vendors.length} caterers on your list` : `${s.vendors.length} caterers on your list`}</p></div>`,
+    `<div class="card kpi"><p class="cap">Milan's calls</p><div class="v">${done}${live ? `<small> · ${live} live</small>` : ''}</div><p>${live ? '<span class="wave" style="vertical-align:middle;margin-right:6px"><i></i><i></i><i></i><i></i><i></i></span>On the phone now' : done ? 'calls made for you, in Hindi' : 'Milan has not called anyone yet'}</p></div>`,
+  ].join(''));
+}
+
+function callStatus(c) {
+  if (!c) return tag('Not started');
+  if (c.status === 'queued') return flag('calls_enabled') ? tag('Waiting for a line') : tag('Paused', 'bad');
+  if (c.status === 'ringing') return tag('Ringing', 'warn', true);
+  if (c.status === 'live') return c.stopping ? tag('Ending politely', 'bad') : tag('On the call', 'live', true);
+  if (c.status === 'summarizing') return tag('Reading the call', 'warn');
+  if (c.error === 'No answer') return tag('No answer', 'bad');
+  if (c.endReason) return tag('Stopped', 'bad');
+  return tag('Done');
+}
+
+function callBlock(key, v, c, label) {
+  const r = c?.result;
+  const live = c && (c.status === 'live' || c.status === 'summarizing');
+  const open = openCalls[key] ?? live;
+  const right = c?.status === 'live' && !c.stopping ? '<span class="wave"><i></i><i></i><i></i><i></i><i></i></span>'
+    : r?.price_per_plate ? `<span class="price">${inr(r.price_per_plate)}<small class="muted" style="font-family:Jost;font-size:12px"> /plate</small></span>`
+    : r?.new_price_per_plate ? `<span class="price">${inr(r.new_price_per_plate)}<small class="muted" style="font-family:Jost;font-size:12px"> /plate</small></span>` : '';
+  const lines = c?.transcript || [];
+  const tr = open ? `<div class="tr">${lines.length ? lines.map((l) => `<div class="ln ${l.speaker}"><div class="s">${l.speaker === 'milan' ? 'Milan · AI' : esc(v.name)}</div><div>${esc(l.text)}</div><div class="en">${l.english ? esc(l.english) : 'Translating…'}</div></div>`).join('') : '<p class="muted" style="margin:6px 0;font-size:14px">Nothing said yet.</p>'}</div>` : '';
+  const quote = !open && r?.quote_line ? `<p class="quote">“${esc(r.quote_line)}”</p>` : '';
+  return `<div class="call ${c?.status === 'live' ? 'live' : ''} ${open ? 'open' : ''}" id="call-${key}">
+    <button class="callrow" data-call="${key}" aria-expanded="${!!open}"><span class="av">${esc(initials(v.name))}</span>
+      <span class="who"><b>${esc(v.name)}${label ? ` <span class="muted" style="font-weight:300;font-size:13px">· ${esc(label)}</span>` : ''}</b><span>${esc(v.area)} · ${esc(v.language)}${v.practice ? ' · practice vendor' : ' · your phone'}</span></span>
+      ${right}${callStatus(c)}${c ? chev : ''}</button>${quote}${tr}</div>`;
+}
+document.addEventListener('click', (e) => {
+  const b = e.target.closest('[data-call]');
+  if (!b) return;
+  const k = b.dataset.call;
+  const c = k === 'callback' ? S.change?.call : S.calls[k];
+  openCalls[k] = !(openCalls[k] ?? (c && (c.status === 'live' || c.status === 'summarizing')));
+  renderJob(S);
+});
+
+function renderJob(s) {
+  const job = s.job;
+  if (!job) {
+    set('job', `<p class="cap">Milan's jobs</p><h2 style="font-size:32px;margin-top:6px">Give Milan its <em>first job</em></h2>
+      <p class="muted" style="margin:8px 0 0;max-width:560px">Tap the orb and say it, the way you'd tell a cousin who's helping out. Milan makes the calls, compares the answers, and brings back only what needs you.</p>
+      <div class="ideas">
+        <div class="idea" role="button" tabindex="0" data-say="Find a veg caterer for ${s.guests} guests under ${inr(s.budgetPerPlate)} a plate"><div class="n">i</div><h3>Find a caterer</h3><p>Milan calls 3 caterers in Hindi and collects quotes</p><p style="margin-top:12px">${tag('Try it', 'gold')}</p></div>
+        <div class="idea" aria-disabled="true"><div class="n">ii</div><h3>Book the decorator</h3><p>Check dates and get mandap quotes</p><p style="margin-top:12px">${tag('Coming soon')}</p></div>
+        <div class="idea" aria-disabled="true"><div class="n">iii</div><h3>Confirm the pandit</h3><p>Muhurat, samagri and dakshina</p><p style="margin-top:12px">${tag('Coming soon')}</p></div>
+      </div>`);
+    return;
+  }
+  const d = s.decision, ch = s.change;
+  const calls = s.vendors.map((v) => s.calls[v.id]).filter(Boolean);
+  const doneN = calls.filter((c) => c.status === 'done').length;
+  const allDone = calls.length && doneN === calls.length;
+  const anyLive = calls.some((c) => ['live', 'ringing', 'summarizing'].includes(c.status));
+  const step = (state, label, sub) => `<div class="sp ${state}"><span class="b">${state === 'done' ? '✓' : ''}</span><span>${label}<small>${sub}</small></span></div>`;
+  const s1 = job.planShown ? 'done' : 'now';
+  const s2 = !job.planShown ? '' : allDone ? 'done' : 'now';
+  const s3 = d ? 'done' : allDone ? 'now' : '';
+  const s4 = !d || d.status === 'none' ? '' : d.status === 'pending' ? 'ask' : 'done';
+  const status = d?.status === 'approved' ? tag('Booked', 'live') : d?.status === 'pending' ? tag('Needs you', 'ask') : d?.status === 'declined' ? tag('Declined', 'bad') : d?.status === 'none' ? tag('No match', 'bad') : !flag('calls_enabled') ? tag('Paused', 'bad') : tag('In progress', 'warn', true);
+  const t = new Date(job.createdAt).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+
+  let html = `<div class="jobhead"><div><p class="cap">Job · started ${esc(t)}</p><h2>${esc(job.text)}</h2></div>${status}</div>
+    <div class="stepper">${step(s1, 'Plan', 'pick caterers')}${step(s2, 'Call', allDone ? `${calls.length} calls done` : anyLive ? `${doneN} of ${calls.length} done` : 'in Hindi')}${step(s3, 'Compare', 'quotes side by side')}${step(s4, 'You decide', d?.status === 'approved' ? 'approved' : 'Milan asks first')}</div>`;
+
+  if (ch) html += renderChange(s);
+
+  // Comparison, once quotes arrive
+  const any = s.vendors.some((v) => s.calls[v.id]?.result);
+  if (any) {
+    html += `<div class="sec"><p class="cap">What the caterers said</p><div style="overflow-x:auto"><table class="cmp"><thead><tr><th>Caterer</th><th>Per plate</th><th>${esc(s.wedding.dateShort)}</th><th>Includes</th><th>Advance</th></tr></thead><tbody>` +
+      s.vendors.map((v) => {
+        const c = s.calls[v.id], r = c?.result;
+        const pick = d && d.vendorId === v.id && d.status !== 'none';
+        if (!r) return `<tr><td><b>${esc(v.name)}</b></td><td colspan="4" class="muted">${c?.status === 'done' ? 'No quote' : 'Still on it…'}</td></tr>`;
+        const over = r.price_per_plate && r.price_per_plate > s.budgetPerPlate;
+        return `<tr class="${pick ? 'pick' : ''}"><td><b>${esc(v.name)}</b>${pick ? `<div style="margin-top:6px">${tag(d.status === 'approved' ? 'Booked' : "Milan's pick", d.status === 'approved' ? 'live' : 'ask')}</div>` : ''}</td>
+          <td><span class="p">${r.price_per_plate ? inr(r.price_per_plate) : '—'}</span>${over ? `<div style="margin-top:6px">${tag('Over budget', 'bad')}</div>` : ''}</td><td>${esc(r.date_available)}</td><td>${esc(r.includes)}</td><td>${esc(r.advance)}</td></tr>`;
+      }).join('') + '</tbody></table></div>';
+    if (d && d.status !== 'none') html += `<div class="reco"><span class="script">Milan's pick</span><div><b>${esc(d.vendorName)}.</b> <span class="muted">${esc(d.reason)}</span></div></div>`;
+    if (d?.status === 'none') html += `<div class="reco"><span class="script">Hmm</span><div class="muted">${esc(d.reason)}</div></div>`;
+    if (d?.status === 'approved' && !ch) html += `<div class="booked rise"><span class="seal"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5 9-10"/></svg></span><div><b class="serif" style="font-size:22px;font-weight:500">${esc(d.vendorName)} is booked</b><div style="font-size:14px">${d.guests} guests × ${inr(d.pricePerPlate)} = ${inr(d.total)} · advance ${esc(d.advance)}${d.auto ? ' · booked without asking (approval_before_booking is off)' : ''}</div></div></div>`;
+    if (d?.status === 'declined') html += `<p class="muted" style="margin:14px 0 0">You declined ${esc(d.vendorName)}. Nothing was booked.</p>`;
+    html += '</div>';
+  }
+
+  // Calls
+  html += `<div class="sec"><p class="cap">Milan's calls</p>`;
+  if (ch) html += callBlock('callback', s.vendors.find((v) => v.id === ch.vendorId), ch.call, 'call back');
+  html += s.vendors.map((v) => callBlock(v.id, v, s.calls[v.id])).join('') + '</div>';
+  set('job', html);
+}
+
+function renderChange(s) {
+  const ch = s.change, cd = ch.decision, c = ch.call;
+  const v = s.vendors.find((x) => x.id === ch.vendorId);
+  const callDone = c.status === 'done';
+  const st = (t, k) => tag(t, k);
+  const c1 = callDone ? st('Done') : c.status === 'live' ? tag('On the call', 'live', true) : c.status === 'ringing' ? tag('Ringing', 'warn', true) : st('Waiting');
+  const c2 = cd?.now ? st('Done') : callDone ? st('Working', 'warn') : st('Waiting');
+  const c3 = cd?.status === 'pending' ? st('Needs you', 'ask') : cd?.status === 'approved' ? st(cd.auto ? 'Approved automatically' : 'Approved', 'live') : cd?.status === 'declined' ? st('Declined', 'bad') : cd?.status === 'none' ? st('Not possible', 'bad') : st('Waiting');
+  let money = '';
+  if (cd?.now) money = `<div class="money" style="margin-top:12px"><div><span>Before · ${cd.before.guests} × ${inr(cd.before.price)}</span><span>${inr(cd.before.total)}</span></div><div><span>Now · ${cd.now.guests} × ${inr(cd.now.price)}</span><b>${inr(cd.now.total)}</b></div><div><span>Catering budget</span><span>${inr(cd.budgetTotal)}</span></div><div><b>${cd.overBy > 0 ? 'Over budget by' : 'Under budget by'}</b><b style="color:${cd.overBy > 0 ? 'var(--rose-d)' : 'var(--sage-d)'}">${inr(Math.abs(cd.overBy))}</b></div></div>`;
+  let note = cd ? esc(cd.reason) : '';
+  if (cd?.status === 'approved') note += cd.auto ? ` ${esc(cd.autoReason)}` : ` ${esc(v.name)} is now booked for ${cd.now.guests} guests.`;
+  if (cd?.status === 'declined') note += ` ${esc(v.name)} stays booked for ${cd.before.guests} guests.`;
+  return `<div class="change rise"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><div><p class="cap">Something changed</p><h3 style="margin-top:4px">Guests: ${ch.fromGuests} → <em>${ch.toGuests}</em></h3></div>${c3}</div>
+    <div class="steps2" style="margin-top:10px"><div><span>Call ${esc(v.name)} back: can they do ${ch.toGuests}, at what price?</span>${c1}</div><div><span>Recalculate the cost</span>${c2}</div><div><span>Check the rules: ask you if it's over budget</span>${c3}</div></div>
+    ${money}${note ? `<p class="muted" style="margin:12px 0 0;font-size:14px">${note}</p>` : ''}
+    ${cd?.status === 'pending' ? `<div style="margin-top:14px"><button class="btn pri sm" data-review="change">Review and approve</button></div>` : ''}</div>`;
+}
+
+function renderFunctions(s) {
+  const fns = s.wedding.functions;
+  const mainIdx = Math.max(0, fns.indexOf('Wedding'));
+  const d = s.decision;
+  const catering = d?.status === 'approved' ? `Catering: ${d.vendorName} ✓` : s.job ? 'Catering: Milan is on it' : 'Catering: not started';
+  set('fn', fns.map((f, i) => {
+    const main = f === 'Wedding';
+    const when = main ? s.wedding.date : i < mainIdx ? 'Before the wedding' : 'After the wedding';
+    return `<li class="${main ? 'main' : ''}"><span class="d"></span><div><b>${esc(f)}</b><span>${esc(when)}${main ? ` · ${esc(catering)}` : ''}</span></div></li>`;
+  }).join(''));
+}
+
+function renderFeed(s) {
+  const t = (ms) => new Date(ms).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+  set('feed', s.activity.length ? s.activity.slice().reverse().slice(0, 30).map((a) => `<li class="${esc(a.kind)}"><time>${t(a.at)}</time><span class="dt"></span><span>${esc(a.text)}</span></li>`).join('')
+    : '<li><span class="muted">Nothing yet. Milan logs every call and decision here.</span></li>');
+}
+
+function renderBehind(s) {
+  const isLocal = ['localhost', '127.0.0.1'].includes(location.hostname);
+  const base = (s.publicUrl || location.origin).replace(/\/$/, '');
+  $('linkWarn').classList.toggle('hidden', !!s.publicUrl || !isLocal);
+  set('links', s.vendors.filter((v) => !v.practice).map((v) => `<div class="linkrow"><input readonly value="${esc(base)}/vendor?v=${esc(v.id)}" aria-label="Phone link for ${esc(v.name)}"><button class="btn sm" data-copy>Copy</button></div>`).join(''));
+  const on = (v) => (v ? tag('On', 'live') : tag('Off', 'bad'));
+  const rows = [
+    ['calls_enabled', 'Calls allowed', on(flag('calls_enabled'))],
+    ['approval_before_booking', 'Ask before booking', on(flag('approval_before_booking'))],
+    ['approval_over_budget', 'Ask if over budget', on(flag('approval_over_budget'))],
+    ['max_price_per_plate', 'Max per plate', tag(inr(s.budgetPerPlate))],
+    ['max_parallel_calls', 'Calls at once', tag(String(flag('max_parallel_calls')))],
+    ['ai_disclosure', 'Says it is an AI', tag('Always', 'live')],
+  ];
+  set('rules', rows.map(([n, l, v]) => `<div class="rule"><span>${esc(l)} <code>${n}</code></span>${v}</div>`).join(''));
+  const r = s.rules;
+  set('rulesSource', r.source === 'flagsmith' ? `Live from Flagsmith (identity “${esc(r.identity)}”).` : r.source === 'connecting' ? 'Connecting to Flagsmith…' : 'Flagsmith is not connected: using default rules.');
+}
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-copy]');
+  if (!b) return;
+  const input = b.previousElementSibling;
+  try { await navigator.clipboard.writeText(input.value); b.textContent = 'Copied'; } catch { input.select(); }
+  setTimeout(() => (b.textContent = 'Copy'), 1500);
+});
+
+// When a new approval appears, Milan opens it and says so.
+function watchForApprovals(s) {
+  const d = s.decision, cd = s.change?.decision;
+  const dKey = d?.status === 'pending' ? d.createdAt : null;
+  const cKey = cd?.status === 'pending' ? s.change.createdAt : null;
+  if (seen.decision === undefined) { seen.decision = dKey; seen.change = cKey; return; } // first load: no surprises
+  if (dKey && dKey !== seen.decision) {
+    announce(`I've compared the quotes. ${d.vendorName} is the best fit at ${d.pricePerPlate} rupees a plate, ${inr(d.total).replace('₹', '')} rupees in all. Shall I book them?`);
+    setTimeout(() => !sheetFor && openSheet('initial'), 600);
+  }
+  if (cKey && cKey !== seen.change) {
+    announce(`${cd.vendorName} can do ${cd.now.guests} guests at ${cd.now.price} rupees a plate. That's ${cd.overBy.toLocaleString('en-IN')} rupees over your catering budget, so I need your approval.`);
+    setTimeout(() => !sheetFor && openSheet('change'), 600);
+  }
+  seen.decision = dKey; seen.change = cKey;
+}
+
+// ---------- Approve sheet ----------
+function openSheet(which) {
+  const p = pendingItem(S);
+  if (!p || p.which !== which) return;
+  sheetFor = which;
+  if (which === 'change') {
+    const cd = S.change.decision;
+    $('sheetTitle').textContent = `Approve ${cd.vendorName} for ${cd.now.guests} guests?`;
+    $('sheetFoundHead').textContent = 'What changed';
+    const why = cd.priceReason ? ` because ${cd.priceReason.replace(/^because\s+/i, '').replace(/\.$/, '')}` : '';
+    $('sheetFound').textContent = `The guest count went from ${cd.before.guests} to ${cd.now.guests}. Milan called ${cd.vendorName} back: they can serve ${cd.now.guests}, at ${inr(cd.now.price)} a plate${why}.`;
+    $('sheetWhy').innerHTML = `<span>⚑</span><span>Rule from <b>Flagsmith</b>: <code>approval_over_budget</code> is on, so anything over budget needs your approval.</span>`;
+    $('sheetIf').textContent = `${cd.vendorName} is booked for ${cd.now.guests} guests at ${inr(cd.now.total)}.`;
+    $('approveBtn').textContent = `Approve ${inr(cd.now.total)}`;
+  } else {
+    const d = S.decision, r = S.calls[d.vendorId]?.result || {};
+    $('sheetTitle').textContent = `Book ${d.vendorName} for ${inr(d.total)}?`;
+    $('sheetFoundHead').textContent = 'What Milan found';
+    $('sheetFound').textContent = `Milan called ${S.vendors.length} caterers. ${d.vendorName} is free on ${S.wedding.dateShort} at ${inr(d.pricePerPlate)} a plate${r.includes ? `, including ${r.includes.toLowerCase()}` : ''}. They want ${d.advance} advance.${d.others ? ` ${d.others.charAt(0).toUpperCase() + d.others.slice(1)}.` : ''}`;
+    $('sheetWhy').innerHTML = `<span>⚑</span><span>Rule from <b>Flagsmith</b>: <code>approval_before_booking</code> is on, so Milan asks you before booking any vendor.</span>`;
+    $('sheetIf').textContent = `${d.vendorName} is booked for ${S.wedding.dateShort} and shows as confirmed on your Vendors page.`;
+    $('approveBtn').textContent = 'Approve and book';
+  }
+  $('sheetCost').innerHTML = p.rows.map(([a, b]) => `<div><span>${esc(a)}</span><span>${b}</span></div>`).join('');
+  $('scrim').classList.remove('hidden');
+  $('sheet').classList.remove('hidden');
+  $('approveBtn').focus();
+}
+function closeSheet() { sheetFor = null; $('scrim').classList.add('hidden'); $('sheet').classList.add('hidden'); }
+$('closeSheet').onclick = closeSheet;
+$('scrim').onclick = closeSheet;
+async function decide(action) {
+  const which = sheetFor;
+  $('approveBtn').disabled = $('declineBtn').disabled = true;
+  try {
+    const res = await fetch('/api/decision', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ action, which }) });
+    const d = await res.json();
+    if (!res.ok) throw new Error(d.error);
+    closeSheet();
+    render(d);
+    if (action === 'approve') { petals(); toast('Approved. Milan will let the vendor know.'); }
+  } catch (e) { toast(e.message); }
+  $('approveBtn').disabled = $('declineBtn').disabled = false;
+}
+$('approveBtn').onclick = () => decide('approve');
+$('declineBtn').onclick = () => decide('decline');
+
+// ---------- Small things ----------
+function toast(msg) {
+  document.querySelector('.toast')?.remove();
+  const t = Object.assign(document.createElement('div'), { className: 'toast', textContent: msg });
+  t.setAttribute('role', 'status');
+  document.body.append(t);
+  setTimeout(() => t.remove(), 3200);
+}
+function petals() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const colors = ['#E7A2AD', '#D27F8E', '#F4C6CD', '#E7C24F', '#F1D290'];
+  for (let i = 0; i < 36; i++) {
+    const p = document.createElement('span');
+    p.className = 'petal';
+    const size = 10 + Math.random() * 12;
+    p.innerHTML = `<svg width="${size}" height="${size * 1.4}" viewBox="0 0 10 14"><path d="M5 0 Q10 6 5 14 Q0 6 5 0Z" fill="${colors[i % colors.length]}"/></svg>`;
+    p.style.left = `${Math.random() * 100}vw`;
+    p.style.setProperty('--dx', `${(Math.random() - .5) * 200}px`);
+    p.style.setProperty('--r', `${Math.random() * 720 - 360}deg`);
+    p.style.animationDuration = `${2.6 + Math.random() * 2.2}s`;
+    p.style.animationDelay = `${Math.random() * .6}s`;
+    document.body.append(p);
+    setTimeout(() => p.remove(), 6000);
+  }
+}
+async function reset(all) {
+  if (all && !confirm('Start over from the setup questions? This clears the wedding and the job.')) return;
+  await fetch(all ? '/api/reset?all=1' : '/api/reset', { method: 'POST' });
+  if (all) return (location.href = '/start');
+  openCalls = {};
+  seen.decision = undefined;
+  poll(true);
+}
+$('resetBtn').onclick = () => reset(false);
+$('resetAllBtn').onclick = () => reset(true);
+
+let timer;
+async function poll(once) {
+  clearTimeout(timer);
+  try {
+    const s = await (await fetch('/api/state')).json();
+    if (!s.setup) return (location.href = '/start');
+    render(s);
+  } catch {}
+  timer = setTimeout(poll, 1000);
+}
+poll();
+</script>
+</body>
+</html>

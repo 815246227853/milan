@@ -1,0 +1,51 @@
+# Milan: the job screen, vendor call pages, and the calls themselves (apps/call-demo).
+# NudgeBee watches this deployment. In the demo we kill the pod mid-job and push a bad config;
+# the job survives both because state lives on the milan-state volume.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata: { name: milan-state }
+spec:
+  accessModes: [ReadWriteOnce]
+  resources: { requests: { storage: 100Mi } }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: milan, labels: { app: milan } }
+spec:
+  replicas: 1 # state is one file on one volume, so exactly one pod
+  strategy: { type: Recreate }
+  selector: { matchLabels: { app: milan } }
+  template:
+    metadata: { labels: { app: milan } }
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: milan
+          image: milan:dev
+          imagePullPolicy: Never # loaded into kind by up.sh, never pulled
+          ports: [{ containerPort: 3000 }]
+          envFrom: [{ secretRef: { name: milan-env } }]
+          env:
+            - { name: DEMO_PORT, value: "3000" }
+            - { name: STATE_FILE, value: /data/state.json }
+            # Trust the corporate TLS proxy (Netskope) if up.sh found its certificate; harmless otherwise.
+            - { name: NODE_EXTRA_CA_CERTS, value: /etc/netskope/ca.pem }
+          volumeMounts:
+            - { name: state, mountPath: /data }
+            - { name: netskope-ca, mountPath: /etc/netskope, readOnly: true }
+          readinessProbe: { httpGet: { path: /health, port: 3000 }, periodSeconds: 3 }
+          livenessProbe: { httpGet: { path: /health, port: 3000 }, periodSeconds: 5, failureThreshold: 3 }
+          resources: { requests: { cpu: 100m, memory: 128Mi }, limits: { memory: 512Mi } }
+      volumes:
+        - name: state
+          persistentVolumeClaim: { claimName: milan-state }
+        - name: netskope-ca
+          configMap: { name: netskope-ca, optional: true } # created by up.sh on laptops behind Netskope
+---
+apiVersion: v1
+kind: Service
+metadata: { name: milan }
+spec:
+  type: NodePort
+  selector: { app: milan }
+  ports: [{ port: 3000, targetPort: 3000, nodePort: 30080 }]

@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Milan · Vendor phone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Phone screen in the apps/landing look: deep ink background, cream text, olive and saffron accents */
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:#2E2A25;color:#FBF7F0;font-family:Jost,system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;padding:28px 16px;text-align:center;-webkit-user-select:none;user-select:none}
+.small{font-size:11px;color:#CDBFAE;margin:0;letter-spacing:.24em;text-transform:uppercase}
+.name{font-family:"Cormorant Garamond",Georgia,serif;font-size:42px;font-weight:500;margin:8px 0 0;line-height:1.1}
+.name em{color:#E8A33D}
+.sub{font-size:15px;color:#EADFD0;margin:2px 0 0}
+.avatar{width:104px;height:104px;border-radius:50%;background:#56644A;display:flex;align-items:center;justify-content:center;font-family:"Cormorant Garamond",Georgia,serif;font-size:50px;font-weight:500;margin:30px auto 14px;color:#FBF7F0}
+.ring .avatar{animation:pulse 1.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(232,163,61,.65)}100%{box-shadow:0 0 0 30px rgba(232,163,61,0)}}
+.status{margin:16px 0;font-size:16px;color:#EADFD0;min-height:24px}
+.caption{width:100%;max-width:420px;background:#3A352F;border:1px solid #4A443C;border-radius:18px;padding:14px 16px;text-align:left;font-size:17px;line-height:1.55;margin-top:10px}
+.caption .who{font-size:11px;color:#CDBFAE;font-weight:500;text-transform:uppercase;letter-spacing:.2em;margin-bottom:4px}
+.spacer{flex:1}
+.row{display:flex;gap:44px;justify-content:center;margin-top:24px}
+.round{width:80px;height:80px;border-radius:50%;border:0;color:#FBF7F0;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;font-family:inherit}
+.green{background:#56644A}.red{background:#9A3B2A}
+.talk{width:100%;max-width:420px;height:76px;border-radius:999px;border:0;font-size:15px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;background:#FBF7F0;color:#2E2A25;cursor:pointer;font-family:inherit;margin-top:20px}
+.talk.rec{background:#E8A33D;color:#2E2A25;animation:rec 1s infinite alternate}
+@keyframes rec{to{opacity:.75}}
+.talk:disabled{opacity:.45}
+.hang{margin-top:16px;background:none;border:1px solid #6B6158;color:#EADFD0;border-radius:999px;padding:10px 24px;font:inherit;font-size:12px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<p class="small" id="vendorLabel">Vendor phone</p>
+
+<div id="screen" style="width:100%;display:flex;flex-direction:column;align-items:center;flex:1">
+  <div class="avatar">M</div>
+  <p class="name">Mil<em>a</em>n</p>
+  <p class="sub" id="subline">AI wedding assistant</p>
+  <p class="status" id="status">Waiting for a call…</p>
+
+  <div class="caption hidden" id="milanCap"><div class="who">Milan said</div><div id="milanText"></div></div>
+  <div class="caption hidden" id="youCap"><div class="who">Milan heard you say</div><div id="youText"></div></div>
+
+  <div class="spacer"></div>
+
+  <div class="row hidden" id="ringButtons">
+    <button class="round red" id="declineBtn">Decline</button>
+    <button class="round green" id="answerBtn">Answer</button>
+  </div>
+
+  <button class="talk hidden" id="talkBtn">Tap to speak</button>
+  <button class="hang hidden" id="hangBtn">Hang up</button>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const V = new URLSearchParams(location.search).get('v') || 'sharma';
+let mode = 'waiting';
+let busy = false; // true while waiting for Milan or while Milan is speaking // waiting | ringing | live | ended
+let ctx, micStream, recording = false, chunks = [];
+
+function show(id, on) { $(id).classList.toggle('hidden', !on); }
+function setStatus(t) { $('status').textContent = t; }
+
+// ---------- Waiting for the call ----------
+// The call for this phone: the call back about a change if there is one, otherwise the first call.
+function myCall(s) {
+  return s.change?.vendorId === V && s.change.call ? s.change.call : s.calls[V];
+}
+
+async function poll() {
+  try {
+    const s = await (await fetch('/api/state')).json();
+    const me = s.vendors.find((v) => v.id === V);
+    $('vendorLabel').textContent = me ? `Vendor phone · ${me.name}` : 'Unknown vendor link';
+    const call = myCall(s);
+    const st = call?.status;
+    if (mode === 'waiting' || mode === 'ended') {
+      if (st === 'ringing') ring(s, call);
+      else if (mode === 'waiting') setStatus(st === 'queued' ? 'Milan will call soon…' : 'Waiting for a call…');
+    } else if (mode === 'ringing' && st !== 'ringing') {
+      reset(st === 'queued' ? 'Milan stopped the call for now. It will call again soon.' : 'Waiting for a call…');
+    } else if (mode === 'live' && call?.stopping && !busy) {
+      goodbye(); // calls were turned off in Flagsmith: Milan ends politely
+    }
+  } catch {}
+  setTimeout(poll, 1000);
+}
+
+// Milan says a polite goodbye and hangs up (the kill switch in Flagsmith was turned off).
+async function goodbye() {
+  busy = true;
+  recording = false;
+  show('talkBtn', false);
+  try {
+    const res = await fetch(`/api/call/goodbye?v=${V}`, { method: 'POST' });
+    const data = await res.json();
+    if (res.ok) await milanSays(data);
+  } catch {}
+  busy = false;
+}
+
+function ring(s, call) {
+  mode = 'ringing';
+  document.body.classList.add('ring');
+  $('subline').textContent = `AI assistant · for ${s.wedding.couple}'s wedding`;
+  setStatus(call?.kind === 'callback' ? 'Incoming call… (Milan is calling back)' : 'Incoming call…');
+  show('ringButtons', true); show('talkBtn', false); show('hangBtn', false);
+  show('milanCap', false); show('youCap', false);
+  if (navigator.vibrate) navigator.vibrate([400, 200, 400]);
+}
+
+function reset(text) {
+  mode = 'waiting';
+  document.body.classList.remove('ring');
+  setStatus(text);
+  show('ringButtons', false); show('talkBtn', false); show('hangBtn', false);
+}
+
+// ---------- Answer: set up mic + speaker, then hear Milan ----------
+$('answerBtn').onclick = async () => {
+  document.body.classList.remove('ring');
+  show('ringButtons', false);
+  setStatus('Connecting…');
+  try {
+    // Audio must be unlocked inside a tap on phones. Reuse it if this phone already took a call.
+    if (!ctx) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      micStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } });
+      setupRecorder();
+    }
+    await ctx.resume();
+  } catch (e) {
+    ctx = null;
+    setStatus('Microphone blocked. Allow microphone access and reload. (The link must start with https://)');
+    return;
+  }
+  mode = 'live';
+  busy = true;
+  show('hangBtn', true);
+  setStatus('Milan is speaking…');
+  try {
+    const res = await fetch(`/api/call/answer?v=${V}`, { method: 'POST' });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    await milanSays(data);
+  } catch (e) {
+    // Couldn't connect: go back to waiting; the phone rings again in a moment.
+    mode = 'waiting';
+    show('hangBtn', false);
+    show('milanCap', false);
+    setStatus('Could not connect (' + e.message + '). It will ring again; answer once more.');
+  }
+  busy = false;
+};
+
+$('declineBtn').onclick = async () => {
+  await fetch(`/api/call/hangup?v=${V}`, { method: 'POST' });
+  reset('Call declined.');
+};
+
+$('hangBtn').onclick = async () => {
+  recording = false;
+  mode = 'ended';
+  await fetch(`/api/call/hangup?v=${V}`, { method: 'POST' });
+  show('talkBtn', false); show('hangBtn', false);
+  setStatus('Call ended.');
+};
+
+async function milanSays(data) {
+  $('milanText').textContent = data.say;
+  show('milanCap', true);
+  show('talkBtn', false);
+  setStatus('Milan is speaking…');
+  await playBase64Wav(data.audio);
+  if (data.end || mode !== 'live') {
+    mode = 'ended';
+    show('talkBtn', false); show('hangBtn', false);
+    setStatus('Call ended. Thank you!');
+    return;
+  }
+  setStatus('Your turn. Tap the button and answer in Hindi.');
+  $('talkBtn').textContent = 'Tap to speak';
+  $('talkBtn').classList.remove('rec');
+  $('talkBtn').disabled = false;
+  show('talkBtn', true);
+}
+
+// ---------- Tap to speak / tap when done ----------
+$('talkBtn').onclick = async () => {
+  if (mode !== 'live') return;
+  if (!recording) {
+    chunks = [];
+    recording = true;
+    $('talkBtn').textContent = 'Tap when done';
+    $('talkBtn').classList.add('rec');
+    setStatus('Listening…');
+    return;
+  }
+  recording = false;
+  busy = true;
+  $('talkBtn').classList.remove('rec');
+  $('talkBtn').disabled = true;
+  $('talkBtn').textContent = 'Milan is thinking…';
+  setStatus('Milan is thinking…');
+  const wav = encodeWav(chunks, ctx.sampleRate, 16000);
+  try {
+    const res = await fetch(`/api/call/turn?v=${V}`, { method: 'POST', headers: { 'content-type': 'audio/wav' }, body: wav });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    if (data.heard) { $('youText').textContent = data.heard; show('youCap', true); }
+    await milanSays(data);
+  } catch (e) {
+    setStatus('Problem: ' + e.message + ' — tap to try again.');
+    $('talkBtn').disabled = false;
+    $('talkBtn').textContent = 'Tap to speak';
+  }
+  busy = false;
+};
+
+// ---------- Audio helpers ----------
+function setupRecorder() {
+  const src = ctx.createMediaStreamSource(micStream);
+  const proc = ctx.createScriptProcessor(4096, 1, 1);
+  proc.onaudioprocess = (e) => { if (recording) chunks.push(new Float32Array(e.inputBuffer.getChannelData(0))); };
+  const mute = ctx.createGain();
+  mute.gain.value = 0;
+  src.connect(proc); proc.connect(mute); mute.connect(ctx.destination);
+}
+
+function encodeWav(parts, inRate, outRate) {
+  const len = parts.reduce((n, p) => n + p.length, 0);
+  const all = new Float32Array(len);
+  let o = 0;
+  for (const p of parts) { all.set(p, o); o += p.length; }
+  // Downsample to 16 kHz (what Sarvam likes best)
+  const ratio = inRate / outRate;
+  const outLen = Math.floor(all.length / ratio);
+  const pcm = new Int16Array(outLen);
+  for (let i = 0; i < outLen; i++) {
+    const start = Math.floor(i * ratio), end = Math.min(all.length, Math.floor((i + 1) * ratio));
+    let sum = 0;
+    for (let j = start; j < end; j++) sum += all[j];
+    const v = Math.max(-1, Math.min(1, sum / Math.max(1, end - start)));
+    pcm[i] = v < 0 ? v * 0x8000 : v * 0x7fff;
+  }
+  const buf = new ArrayBuffer(44 + pcm.length * 2);
+  const v = new DataView(buf);
+  const w = (off, s) => { for (let i = 0; i < s.length; i++) v.setUint8(off + i, s.charCodeAt(i)); };
+  w(0, 'RIFF'); v.setUint32(4, 36 + pcm.length * 2, true); w(8, 'WAVE');
+  w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+  v.setUint32(24, outRate, true); v.setUint32(28, outRate * 2, true); v.setUint16(32, 2, true); v.setUint16(34, 16, true);
+  w(36, 'data'); v.setUint32(40, pcm.length * 2, true);
+  new Int16Array(buf, 44).set(pcm);
+  return new Blob([buf], { type: 'audio/wav' });
+}
+
+function playBase64Wav(b64) {
+  return new Promise(async (resolve) => {
+    try {
+      const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+      const audio = await ctx.decodeAudioData(bytes.buffer);
+      const node = ctx.createBufferSource();
+      node.buffer = audio;
+      node.connect(ctx.destination);
+      node.onended = resolve;
+      node.start();
+    } catch (e) { console.error(e); resolve(); }
+  });
+}
+
+poll();
+</script>
+</body>
+</html>
