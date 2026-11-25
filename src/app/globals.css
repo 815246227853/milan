@@ -1,0 +1,95 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-sindoor: #8e1b2c;
+  --color-sindoor-deep: #5e0f1c;
+  --color-genda: #e9731c;
+  --color-haldi: #f2b705;
+  --color-mehendi: #3f5a2a;
+  --color-rani: #c2255c;
+  --color-paper: #fff8ec;
+  --color-ink: #2b1a14;
+  --color-muted: #75625a;
+  --color-line: #ead9c4;
+  --color-card: #fffdf8;
+  --font-display: var(--font-yatra), 'Georgia', serif;
+  --font-body: var(--font-mukta), system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* A faint rangoli dot grid behind everything, so the page feels like a courtyard floor, not a form. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(circle, rgba(142, 27, 44, 0.07) 1.2px, transparent 1.3px);
+  background-size: 22px 22px;
+  pointer-events: none;
+}
+
+:focus-visible {
+  outline: 2.5px solid var(--color-genda);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.2deg); }
+  50% { transform: rotate(1.2deg); }
+}
+.sway {
+  transform-origin: 50% 0;
+  animation: sway 5s ease-in-out infinite;
+}
+
+@keyframes ring {
+  0% { box-shadow: 0 0 0 0 rgba(233, 115, 28, 0.5); }
+  100% { box-shadow: 0 0 0 12px rgba(233, 115, 28, 0); }
+}
+.ringing {
+  animation: ring 1.2s ease-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+.wave span {
+  display: inline-block;
+  width: 3px;
+  height: 14px;
+  margin: 0 1px;
+  border-radius: 2px;
+  background: currentColor;
+  animation: wave 0.9s ease-in-out infinite;
+}
+.wave span:nth-child(2) { animation-delay: 0.15s; }
+.wave span:nth-child(3) { animation-delay: 0.3s; }
+.wave span:nth-child(4) { animation-delay: 0.45s; }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.line-in {
+  animation: rise 0.35s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sway, .ringing, .wave span, .line-in { animation: none !important; }
+}
