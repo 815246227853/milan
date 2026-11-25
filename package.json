@@ -1,0 +1,10 @@
+{
+  "name": "milan",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter ./apps/** dev",
+    "build": "pnpm -r build",
+    "db:migrate": "psql \"$DATABASE_URL\" -f packages/db/migrations/001_init.sql",
+    "db:seed": "psql \"$DATABASE_URL\" -f packages/db/seed/demo.sql"
+  }
+}

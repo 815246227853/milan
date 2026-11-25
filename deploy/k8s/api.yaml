@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: milan-api, labels: { app: milan-api } }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: milan-api } }
+  template:
+    metadata: { labels: { app: milan-api } }
+    spec:
+      containers:
+        - name: api
+          image: milan-api
+          imagePullPolicy: IfNotPresent
+          ports: [{ containerPort: 4000 }]
+          envFrom: [{ secretRef: { name: milan-env } }]
+          readinessProbe: { httpGet: { path: /health, port: 4000 }, periodSeconds: 5 }
+          resources: { requests: { cpu: 100m, memory: 128Mi }, limits: { memory: 512Mi } }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: milan-api }
+spec: { selector: { app: milan-api }, ports: [{ port: 4000, targetPort: 4000 }] }

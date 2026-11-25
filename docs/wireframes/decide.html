@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Approve a decision · Milan wireframe</title>
+<style>
+body{margin:0}
+a{color:#18181B}a:hover{color:#000000}
+.ph{background:#EDEDEF;border-radius:12px}
+.h{font-size:13px;font-weight:600;color:#52525B;text-transform:uppercase;letter-spacing:.04em;margin:0}
+.line{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid #F0F0F1}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:46px;padding:0 18px;border-radius:8px;border:1px solid #D4D4D8;background:#FFFFFF;color:#18181B;font-weight:600;font-size:15px;text-decoration:none}
+.btn.pri{background:#18181B;border-color:#18181B;color:#FFFFFF}
+</style>
+</head>
+<body>
+<div style="position: relative; min-height: 960px; background: #FAFAFA; font-family: Inter, system-ui, sans-serif; color: #18181B; font-size: 15px; line-height: 1.45; overflow: hidden">
+<div aria-hidden="true" style="display: flex; gap: 0; min-height: 960px">
+<div style="width: 232px; background: #FFFFFF; border-right: 1px solid #E4E4E7"></div>
+<div style="flex: 1; padding: 28px 36px; display: flex; flex-direction: column; gap: 20px">
+<div class="ph" style="height: 60px; width: 40%"></div><div class="ph" style="height: 110px"></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px"><div class="ph" style="height: 200px"></div><div class="ph" style="height: 200px"></div></div>
+<div class="ph" style="height: 140px"></div>
+</div>
+</div>
+<div aria-hidden="true" style="position: absolute; inset: 0; background: rgba(24,24,27,0.4)"></div>
+<aside aria-label="Approve Sharma Caterers for 300 guests" style="position: absolute; top: 0; right: 0; bottom: 0; width: min(560px, 100%); background: #FFFFFF; box-shadow: -12px 0 40px rgba(0,0,0,0.15); display: flex; flex-direction: column; box-sizing: border-box">
+<div style="padding: 24px 28px; border-bottom: 1px solid #E4E4E7; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px">
+<div><p class="h">Needs your approval</p><h1 style="margin: 6px 0 0; font-size: 24px; line-height: 1.25">Approve Sharma Caterers for 300 guests?</h1></div>
+<a href="home.html" aria-label="Close" style="display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; border-radius: 8px; text-decoration: none; font-size: 22px; color: #3F3F46">×</a>
+</div>
+<div style="flex: 1; overflow: auto; padding: 20px 28px; display: flex; flex-direction: column; gap: 22px">
+<section><p class="h" style="margin-bottom: 6px">What changed</p><p style="margin: 0">You raised the guest count from 250 to 300. Milan called Sharma Caterers: they can serve 300, at ₹990 a plate because they need more staff.</p></section>
+<section><p class="h" style="margin-bottom: 4px">Cost</p>
+<div class="line" style="border-top: 0"><span>Before: 250 × ₹950</span><span>₹2,37,500</span></div>
+<div class="line"><span>Now: 300 × ₹990</span><b>₹2,97,000</b></div>
+<div class="line"><span>Catering budget</span><span>₹2,50,000</span></div>
+<div class="line"><b>Over budget by</b><b>₹47,000</b></div>
+</section>
+<section><p class="h" style="margin-bottom: 6px">Why Milan asked you</p><p style="margin: 0; color: #3F3F46">Anything over budget needs your approval. You can change this rule in Settings (Flagsmith).</p></section>
+<section><p class="h" style="margin-bottom: 6px">If you approve</p><p style="margin: 0; color: #3F3F46">Milan confirms 300 guests with Sharma Caterers on a call, sends them the details on WhatsApp, and updates your budget.</p></section>
+<a href="job.html" style="font-size: 14px">Listen to the call with Sharma Caterers</a>
+</div>
+<div style="padding: 18px 28px; border-top: 1px solid #E4E4E7; display: flex; flex-direction: column; gap: 10px">
+<a class="btn pri" href="vendors.html">Approve ₹2,97,000</a>
+<div style="display: flex; gap: 10px"><a class="btn" href="job.html" style="flex: 1">Find a cheaper option</a><a class="btn" href="home.html" style="flex: 1">Decline</a></div>
+</div>
+</aside>
+</div>
+
+</body>
+</html>

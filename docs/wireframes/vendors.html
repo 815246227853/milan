@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vendors · Milan wireframe</title>
+<style>
+body{margin:0}
+a{color:#18181B}a:hover{color:#000000}
+.nav{display:block;padding:10px 12px;border-radius:8px;color:#3F3F46;text-decoration:none;font-size:15px}
+.nav.on{background:#F4F4F5;color:#18181B;font-weight:600}
+.h{font-size:13px;font-weight:600;color:#52525B;text-transform:uppercase;letter-spacing:.04em;margin:0}
+.chip{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:999px;border:1px solid #D4D4D8;font-size:13px;color:#3F3F46;background:#FFFFFF;font-family:inherit}
+.chip.on{background:#18181B;border-color:#18181B;color:#FFFFFF}
+.tag{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;background:#F4F4F5;font-size:12px;font-weight:600;color:#3F3F46;white-space:nowrap}
+.tag.dark{background:#18181B;color:#FFFFFF}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-size:12px;color:#52525B;font-weight:600;padding:10px 12px;border-bottom:1px solid #E4E4E7;white-space:nowrap}
+.tbl td{padding:12px;border-bottom:1px solid #F0F0F1}
+.line{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid #F0F0F1}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;border-radius:8px;border:1px solid #D4D4D8;background:#FFFFFF;color:#18181B;font-weight:600;font-size:14px;text-decoration:none}
+</style>
+</head>
+<body>
+<div style="min-height: 960px; background: #FAFAFA; font-family: Inter, system-ui, sans-serif; color: #18181B; font-size: 15px; line-height: 1.45; display: flex; flex-wrap: wrap">
+<nav style="flex: 1 1 200px; max-width: 232px; padding: 20px 14px; border-right: 1px solid #E4E4E7; background: #FFFFFF; display: flex; flex-direction: column; gap: 4px; box-sizing: border-box">
+<p style="margin: 0; font-weight: 700; font-size: 20px; padding: 6px 12px 18px">Milan</p>
+<a class="nav" href="home.html">Home</a><a class="nav" href="job.html">Jobs</a><a class="nav on" href="vendors.html">Vendors</a><a class="nav" href="#">Budget</a><a class="nav" href="#">Timeline</a>
+</nav>
+<main style="flex: 999 1 560px; min-width: 0; display: flex; flex-wrap: wrap">
+<section style="flex: 999 1 520px; min-width: 0; padding: 28px 36px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap"><h1 style="margin: 0; font-size: 28px">Vendors</h1><a class="btn" href="#">Add vendor</a></div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap"><button class="chip on">All 9</button><button class="chip">Confirmed 7</button><button class="chip">Needs follow-up 2</button><button class="chip">By function</button></div>
+<div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #E4E4E7; border-radius: 12px">
+<table class="tbl">
+<thead><tr><th>Vendor</th><th>For</th><th>Function</th><th>Quote</th><th>Status</th><th>Last contact</th></tr></thead>
+<tbody>
+<tr style="background: #F4F4F5"><td><b>Sharma Caterers</b></td><td>Food</td><td>Wedding</td><td>₹2,97,000</td><td><span class="tag dark">Confirmed</span></td><td>Call, today</td></tr>
+<tr><td><b>Royal Decor</b></td><td>Decor</td><td>Sangeet</td><td>[QUOTE]</td><td><span class="tag">Quote in</span></td><td>Call, today</td></tr>
+<tr><td><b>DJ Vicky</b></td><td>Music</td><td>Sangeet</td><td>[QUOTE]</td><td><span class="tag">On a call</span></td><td>Now</td></tr>
+<tr><td><b>Lens and Light</b></td><td>Photos</td><td>All</td><td>[QUOTE]</td><td><span class="tag">Waiting</span></td><td>Call, yesterday</td></tr>
+<tr><td><b>Pandit Shastri</b></td><td>Rituals</td><td>Wedding</td><td>[QUOTE]</td><td><span class="tag dark">Confirmed</span></td><td>Call, 3 days ago</td></tr>
+<tr><td><b>Shiv Band</b></td><td>Band</td><td>Baraat</td><td>[QUOTE]</td><td><span class="tag dark">Confirmed</span></td><td>Message, 4 days ago</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<aside aria-label="Sharma Caterers" style="flex: 1 1 360px; max-width: 440px; background: #FFFFFF; border-left: 1px solid #E4E4E7; padding: 24px 26px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px"><div><h2 style="margin: 0; font-size: 22px">Sharma Caterers</h2><p style="margin: 2px 0 0; color: #52525B">Food, Wedding. Sitabuldi, Nagpur</p></div><span class="tag dark">Confirmed</span></div>
+<section><p class="h" style="margin-bottom: 4px">The deal</p>
+<div class="line" style="border-top: 0"><span>300 guests × ₹990</span><b>₹2,97,000</b></div>
+<div class="line"><span>Includes</span><span>Veg menu, live counter</span></div>
+<div class="line"><span>Advance, due Friday</span><span>[ADVANCE]</span></div>
+<div class="line"><span>Balance, due on the day</span><span>[BALANCE]</span></div>
+</section>
+<section><p class="h" style="margin-bottom: 8px">Conversations</p>
+<div class="line" style="border-top: 0; flex-direction: column; gap: 2px"><b style="font-size: 14px">Call, today, 2:20 PM</b><span style="color: #52525B; font-size: 14px">Confirmed 300 guests at ₹990 a plate</span></div>
+<div class="line" style="flex-direction: column; gap: 2px"><b style="font-size: 14px">WhatsApp, today, 2:24 PM</b><span style="color: #52525B; font-size: 14px">Sent written summary of the booking</span></div>
+<div class="line" style="flex-direction: column; gap: 2px"><b style="font-size: 14px">Call, 3 days ago</b><span style="color: #52525B; font-size: 14px">First quote: ₹950 a plate for 250</span></div>
+</section>
+<section style="background: #F4F4F5; border-radius: 12px; padding: 14px 16px"><p style="margin: 0; font-weight: 600">Next, Milan will</p><p style="margin: 4px 0 0; font-size: 14px; color: #3F3F46">Remind you about the advance on Thursday, and reconfirm the menu and arrival time on 11 Dec.</p></section>
+<div style="display: flex; gap: 10px; flex-wrap: wrap"><a class="btn" href="job.html">Ask Milan about this vendor</a></div>
+</aside>
+</main>
+</div>
+
+</body>
+</html>

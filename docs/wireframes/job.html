@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job: find a caterer · Milan wireframe</title>
+<style>
+body{margin:0}
+a{color:#18181B}a:hover{color:#000000}
+.nav{display:block;padding:10px 12px;border-radius:8px;color:#3F3F46;text-decoration:none;font-size:15px}
+.nav.on{background:#F4F4F5;color:#18181B;font-weight:600}
+.card{background:#FFFFFF;border:1px solid #E4E4E7;border-radius:12px;padding:16px 18px}
+.h{font-size:13px;font-weight:600;color:#52525B;text-transform:uppercase;letter-spacing:.04em;margin:0}
+.tag{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;background:#F4F4F5;font-size:12px;font-weight:600;color:#3F3F46}
+.tag.dark{background:#18181B;color:#FFFFFF}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:40px;padding:0 16px;border-radius:8px;border:1px solid #D4D4D8;background:#FFFFFF;color:#18181B;font-weight:600;font-size:14px;text-decoration:none}
+.btn.pri{background:#18181B;border-color:#18181B;color:#FFFFFF}
+.step{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid #F0F0F1}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-size:12px;color:#52525B;font-weight:600;padding:8px 10px;border-bottom:1px solid #E4E4E7}
+.tbl td{padding:10px;border-bottom:1px solid #F0F0F1}
+</style>
+</head>
+<body>
+<div style="min-height: 960px; background: #FAFAFA; font-family: Inter, system-ui, sans-serif; color: #18181B; font-size: 15px; line-height: 1.45; display: flex; flex-wrap: wrap">
+<nav style="flex: 1 1 200px; max-width: 232px; padding: 20px 14px; border-right: 1px solid #E4E4E7; background: #FFFFFF; display: flex; flex-direction: column; gap: 4px; box-sizing: border-box">
+<p style="margin: 0; font-weight: 700; font-size: 20px; padding: 6px 12px 18px">Milan</p>
+<a class="nav" href="home.html">Home</a><a class="nav on" href="job.html">Jobs</a><a class="nav" href="vendors.html">Vendors</a><a class="nav" href="#">Budget</a><a class="nav" href="#">Timeline</a>
+</nav>
+<main style="flex: 999 1 560px; min-width: 0; padding: 28px 36px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<section style="flex: 999 1 520px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<div><a href="home.html" style="font-size: 14px; color: #52525B">Back to Home</a><h1 style="margin: 6px 0 0; font-size: 26px">Find a veg caterer for the wedding</h1></div>
+<div style="align-self: flex-end; max-width: 80%; background: #18181B; color: #FFFFFF; border-radius: 14px 14px 4px 14px; padding: 12px 16px">Find me a vegetarian caterer for 250 guests, within ₹1,000 per plate. Check availability and get quotes.</div>
+<div class="card">
+<p style="margin: 0 0 8px; font-weight: 600">Milan's plan</p>
+<div class="step" style="border-top: 0"><span>Pick 3 caterers from your vendor list</span><span class="tag">Done</span></div>
+<div class="step"><span>Call each one in Hindi: price, date, menu, advance</span><span class="tag">Done</span></div>
+<div class="step"><span>Compare and recommend</span><span class="tag">Done</span></div>
+<div class="step"><span>Book, once you approve</span><span class="tag dark">Needs you</span></div>
+</div>
+<div class="card">
+<p style="margin: 0 0 8px; font-weight: 600">What the caterers said</p>
+<div style="overflow-x: auto">
+<table class="tbl">
+<thead><tr><th>Caterer</th><th>Per plate</th><th>12 Dec</th><th>Includes</th><th>Advance</th></tr></thead>
+<tbody>
+<tr><td><b>Sharma Caterers</b> <span class="tag dark">Recommended</span></td><td>₹950</td><td>Free</td><td>Live counter</td><td>30%</td></tr>
+<tr><td><b>Annapurna Foods</b></td><td>₹980</td><td>Free</td><td>Dessert</td><td>25%</td></tr>
+<tr><td><b>Gupta Caterers</b></td><td>₹1,200 <span class="tag">Over budget</span></td><td>Free</td><td>Basic menu</td><td>40%</td></tr>
+</tbody>
+</table>
+</div>
+<p style="margin: 12px 0 0; color: #52525B">Sharma is the best value inside your budget: ₹2,37,500 for 250 guests, with a live counter.</p>
+<div style="display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap"><a class="btn pri" href="decide.html">Review and approve</a><a class="btn" href="#">Find more options</a></div>
+</div>
+<div style="display: flex; gap: 10px; align-items: center">
+<label for="reply" style="position: absolute; left: -9999px">Reply to Milan</label>
+<input id="reply" placeholder="Reply to Milan, or change the brief" style="flex: 1; height: 46px; padding: 0 14px; border: 1px solid #D4D4D8; border-radius: 8px; font: inherit; min-width: 0">
+<button class="btn">Send</button>
+</div>
+</section>
+<aside style="flex: 1 1 340px; max-width: 420px; display: flex; flex-direction: column; gap: 12px">
+<h2 class="h">Calls for this job</h2>
+<div class="card"><div style="display: flex; justify-content: space-between; gap: 8px"><b>Sharma Caterers</b><span class="tag">Done, 2 min</span></div><p style="margin: 6px 0 0; color: #52525B; font-size: 14px">Hindi. "950 mein ho jayega, live counter ke saath."</p><a href="#" style="font-size: 14px">Read transcript</a></div>
+<div class="card"><div style="display: flex; justify-content: space-between; gap: 8px"><b>Annapurna Foods</b><span class="tag">Done, 3 min</span></div><p style="margin: 6px 0 0; color: #52525B; font-size: 14px">Hindi. "980 per plate, dessert included."</p><a href="#" style="font-size: 14px">Read transcript</a></div>
+<div class="card"><div style="display: flex; justify-content: space-between; gap: 8px"><b>Gupta Caterers</b><span class="tag">Done, 2 min</span></div><p style="margin: 6px 0 0; color: #52525B; font-size: 14px">Hindi. "Date free hai, 1,200 lagega."</p><a href="#" style="font-size: 14px">Read transcript</a></div>
+<div class="card" style="background: #F4F4F5"><p style="margin: 0; font-weight: 600">Rules for this job</p><p style="margin: 6px 0 0; font-size: 14px; color: #3F3F46">Stay under ₹1,000 a plate. Ask before booking anything. Say Milan is an AI on every call.</p><p style="margin: 6px 0 0; font-size: 13px; color: #52525B">Set in Flagsmith</p></div>
+</aside>
+</main>
+</div>
+
+</body>
+</html>

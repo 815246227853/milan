@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Set up your wedding · Milan wireframe</title>
+<style>
+body{margin:0}
+a{color:#18181B}a:hover{color:#000000}
+.chip{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:999px;border:1px solid #D4D4D8;font-size:14px;color:#3F3F46;background:#FFFFFF;font-family:inherit}
+.chip.on{background:#18181B;border-color:#18181B;color:#FFFFFF}
+.lbl{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+.input{display:block;height:44px;padding:0 14px;border:1px solid #D4D4D8;border-radius:8px;background:#FFFFFF;font:inherit;color:#18181B;box-sizing:border-box;width:100%}
+</style>
+</head>
+<body>
+<div style="min-height: 960px; background: #FAFAFA; font-family: Inter, system-ui, sans-serif; color: #18181B; font-size: 15px; line-height: 1.45; display: flex; justify-content: center; padding: 56px 24px; box-sizing: border-box">
+<div style="width: 100%; max-width: 720px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<p style="margin: 0; font-size: 20px; font-weight: 700">Milan</p>
+<h1 style="margin: 0; font-size: 34px; line-height: 1.2">Tell Milan about your wedding</h1>
+<p style="margin: 0; color: #52525B">Two minutes now saves weeks of calls. You can change any of this later.</p>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E4E4E7; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px">
+<div><label class="lbl" for="couple">Whose wedding?</label><input class="input" id="couple" value="Riya and Arjun"></div>
+<div><label class="lbl" for="date">Main wedding date</label><input class="input" id="date" value="12 December 2026"></div>
+<div><label class="lbl" for="city">City</label><input class="input" id="city" value="Nagpur"></div>
+<div><label class="lbl" for="guests">Guests, roughly</label><input class="input" id="guests" value="250"></div>
+<div><label class="lbl" for="budget">Total budget</label><input class="input" id="budget" placeholder="[YOUR BUDGET]"></div>
+<div><label class="lbl" for="lang">Vendors usually speak</label><input class="input" id="lang" value="Hindi, Marathi"></div>
+</div>
+<div>
+<p class="lbl" style="margin: 0 0 10px">Which functions are you having?</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button class="chip">Engagement</button><button class="chip on">Haldi</button><button class="chip on">Mehendi</button><button class="chip on">Sangeet</button><button class="chip on">Wedding</button><button class="chip on">Reception</button><button class="chip">Add another</button>
+</div>
+</div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E4E4E7; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<p style="margin: 0; font-weight: 600">Vendors you already have</p>
+<p style="margin: 0; color: #52525B">Milan calls the vendors on your list. Add them now, or skip and add them when you give Milan a job.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button class="chip">Upload a sheet</button><button class="chip">Paste names and numbers</button><button class="chip">Add one by one</button>
+</div>
+</div>
+<div style="display: flex; justify-content: flex-end; gap: 12px; flex-wrap: wrap">
+<a href="home.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 8px; color: #18181B; text-decoration: none; font-weight: 600">Skip for now</a>
+<a href="home.html" style="display: inline-flex; align-items: center; height: 44px; padding: 0 22px; border-radius: 8px; background: #18181B; color: #FFFFFF; text-decoration: none; font-weight: 600">Set up my wedding</a>
+</div>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home · Milan wireframe</title>
+<style>
+body{margin:0}
+a{color:#18181B}a:hover{color:#000000}
+.nav{display:block;padding:10px 12px;border-radius:8px;color:#3F3F46;text-decoration:none;font-size:15px}
+.nav.on{background:#F4F4F5;color:#18181B;font-weight:600}
+.card{background:#FFFFFF;border:1px solid #E4E4E7;border-radius:12px;padding:16px 18px}
+.h{font-size:13px;font-weight:600;color:#52525B;text-transform:uppercase;letter-spacing:.04em;margin:0}
+.chip{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:999px;border:1px solid #D4D4D8;font-size:13px;color:#3F3F46;background:#FFFFFF;font-family:inherit}
+.tag{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;background:#F4F4F5;font-size:12px;font-weight:600;color:#3F3F46}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:38px;padding:0 14px;border-radius:8px;border:1px solid #D4D4D8;background:#FFFFFF;color:#18181B;font-weight:600;font-size:14px;text-decoration:none}
+.btn.pri{background:#18181B;border-color:#18181B;color:#FFFFFF}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #F0F0F1}
+</style>
+</head>
+<body>
+<div style="min-height: 960px; background: #FAFAFA; font-family: Inter, system-ui, sans-serif; color: #18181B; font-size: 15px; line-height: 1.45; display: flex; flex-wrap: wrap">
+<nav style="flex: 1 1 200px; max-width: 232px; padding: 20px 14px; border-right: 1px solid #E4E4E7; background: #FFFFFF; display: flex; flex-direction: column; gap: 4px; box-sizing: border-box">
+<p style="margin: 0; font-weight: 700; font-size: 20px; padding: 6px 12px 18px">Milan</p>
+<a class="nav on" href="home.html">Home</a><a class="nav" href="job.html">Jobs</a><a class="nav" href="vendors.html">Vendors</a><a class="nav" href="#budget">Budget</a><a class="nav" href="#functions">Timeline</a>
+</nav>
+<main style="flex: 999 1 560px; min-width: 0; padding: 28px 36px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap">
+<div><h1 style="margin: 0; font-size: 32px; line-height: 1.2">30 days to go</h1><p style="margin: 4px 0 0; color: #52525B">Riya and Arjun, 12 December, Nagpur. 5 functions, 250 guests.</p></div>
+<span class="tag">Milan is working on 2 jobs</span>
+</div>
+<div class="card" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; gap: 10px; align-items: center">
+<label for="ask" style="position: absolute; left: -9999px">Give Milan a job</label>
+<input id="ask" placeholder="Give Milan a job, like: find a veg caterer for 250 guests under ₹1,000 a plate" style="flex: 1; height: 48px; padding: 0 14px; border: 1px solid #D4D4D8; border-radius: 8px; font: inherit; min-width: 0">
+<a class="btn pri" href="job.html" style="height: 48px">Give job</a>
+</div>
+<div style="display: flex; gap: 8px; flex-wrap: wrap"><button class="chip">Follow up with pending vendors</button><button class="chip">What's left for the sangeet?</button><button class="chip">Compare decorator quotes</button></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
+<section class="card" style="display: flex; flex-direction: column; gap: 4px">
+<h2 class="h">Needs you (2)</h2>
+<div class="row" style="border-top: 0"><div><p style="margin: 0; font-weight: 600">Approve Sharma Caterers for 300 guests</p><p style="margin: 2px 0 0; color: #52525B; font-size: 14px">₹2,97,000. Over the catering budget by ₹47,000</p></div><a class="btn pri" href="decide.html">Review</a></div>
+<div class="row"><div><p style="margin: 0; font-weight: 600">Pick a decorator for the sangeet</p><p style="margin: 2px 0 0; color: #52525B; font-size: 14px">3 quotes ready to compare</p></div><a class="btn" href="job.html">Compare</a></div>
+</section>
+<section class="card" style="display: flex; flex-direction: column; gap: 4px">
+<h2 class="h">Milan is working on</h2>
+<div class="row" style="border-top: 0"><div><p style="margin: 0; font-weight: 600">Find a DJ for the sangeet</p><p style="margin: 2px 0 0; color: #52525B; font-size: 14px">Called 2 of 3 DJs. Calling the last one now</p></div><span class="tag">On a call</span></div>
+<div class="row"><div><p style="margin: 0; font-weight: 600">Confirm haldi timing with the photographer</p><p style="margin: 2px 0 0; color: #52525B; font-size: 14px">No answer yet. Will try again at 6 PM</p></div><span class="tag">Waiting</span></div>
+</section>
+</div>
+<section id="functions" style="display: flex; flex-direction: column; gap: 12px">
+<h2 class="h">Functions</h2>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px">
+<div class="card"><p style="margin: 0; font-weight: 600">Haldi</p><p style="margin: 2px 0 8px; color: #52525B; font-size: 14px">10 Dec</p><span class="tag">3 of 3 confirmed</span></div>
+<div class="card"><p style="margin: 0; font-weight: 600">Mehendi</p><p style="margin: 2px 0 8px; color: #52525B; font-size: 14px">11 Dec, day</p><span class="tag">1 pending</span></div>
+<div class="card"><p style="margin: 0; font-weight: 600">Sangeet</p><p style="margin: 2px 0 8px; color: #52525B; font-size: 14px">11 Dec, night</p><span class="tag">2 pending</span></div>
+<div class="card"><p style="margin: 0; font-weight: 600">Wedding</p><p style="margin: 2px 0 8px; color: #52525B; font-size: 14px">12 Dec</p><span class="tag">4 of 5 confirmed</span></div>
+<div class="card"><p style="margin: 0; font-weight: 600">Reception</p><p style="margin: 2px 0 8px; color: #52525B; font-size: 14px">13 Dec</p><span class="tag">Not started</span></div>
+</div>
+</section>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px">
+<section id="budget" class="card">
+<h2 class="h" style="margin-bottom: 8px">Budget</h2>
+<div class="row" style="border-top: 0"><span>Total budget</span><b>[YOUR BUDGET]</b></div>
+<div class="row"><span>Booked so far</span><b>[BOOKED]</b></div>
+<div class="row"><span>Waiting for your approval</span><b>₹2,97,000</b></div>
+</section>
+<section class="card">
+<h2 class="h" style="margin-bottom: 8px">What Milan did today</h2>
+<div class="row" style="border-top: 0"><span>Called Sharma Caterers about 300 guests</span><span style="color: #52525B; font-size: 13px">2:20 PM</span></div>
+<div class="row"><span>Got 3 decorator quotes</span><span style="color: #52525B; font-size: 13px">1:05 PM</span></div>
+<div class="row"><span>Sent the photographer the haldi timing</span><span style="color: #52525B; font-size: 13px">11:40 AM</span></div>
+</section>
+</div>
+</main>
+</div>
+
+</body>
+</html>
