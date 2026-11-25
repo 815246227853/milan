@@ -1,10 +1,33 @@
 {
   "name": "milan",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "pnpm -r --parallel --filter ./apps/** dev",
-    "build": "pnpm -r build",
-    "db:migrate": "psql \"$DATABASE_URL\" -f packages/db/migrations/001_init.sql",
-    "db:seed": "psql \"$DATABASE_URL\" -f packages/db/seed/demo.sql"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "sync-agent": "node --env-file=.env --experimental-strip-types bolna/sync-agent.ts"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "flagsmith-nodejs": "^8.1.2",
+    "next": "^16.4.6",
+    "openai": "^7.64.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.5",
+    "@types/node": "^26.6.10",
+    "@types/react": "^19.3.2",
+    "@types/react-dom": "^19.3.0",
+    "tailwindcss": "^4.3.5",
+    "typescript": "^7.0.2",
+    "vitest": "^3.2.4"
   }
 }

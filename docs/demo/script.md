@@ -15,6 +15,5 @@
 Sharma, on the call back: "Ho jayega, par staff badhega, toh 990 per plate lagega." → ₹2,97,000, over the ₹2,50,000 catering budget → approval.
 
 ## Sponsor moments
-1. Sarvam: the live Hindi call with English subtitles.
-2. Flagsmith: approval triggered by `approval_over_budget`; then flip `calls_enabled` off mid-call.
-3. NudgeBee: `kubectl delete pod -l app=milan-call-worker --wait=false` (one pod), NudgeBee flags it, the job carries on.
+1. Bolna + Sarvam: the live Hindi calls, transcripts appearing on the job page.
+2. Flagsmith: "Book anyway" prompt from `approval_over_budget`; then flip `calls_enabled` off and show new calls are refused.

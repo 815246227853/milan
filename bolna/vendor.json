@@ -1,0 +1,239 @@
+{
+  "agent_config": {
+    "agent_name": "milan-vendor",
+    "agent_welcome_message": "Namaste ji, kya main {{vendor_name}} se baat kar rahi hoon? Main Milan hoon, ek AI assistant, {{couple}} ki shaadi ke liye call kar rahi hoon.",
+    "tasks": [
+      {
+        "task_type": "conversation",
+        "toolchain": {
+          "execution": "parallel",
+          "pipelines": [
+            [
+              "transcriber",
+              "llm",
+              "synthesizer"
+            ]
+          ]
+        },
+        "tools_config": {
+          "llm_agent": {
+            "agent_type": "simple_llm_agent",
+            "agent_flow_type": "streaming",
+            "llm_config": {
+              "provider": "openai",
+              "model": "gpt-4.1-mini",
+              "max_tokens": 120,
+              "temperature": 0.5
+            }
+          },
+          "transcriber": {
+            "provider": "sarvam",
+            "model": "saaras:v4",
+            "language": "hi",
+            "stream": true,
+            "endpointing": 400,
+            "encoding": "linear16",
+            "sampling_rate": 16000
+          },
+          "synthesizer": {
+            "provider": "sarvam",
+            "provider_config": {
+              "voice": "Suhani",
+              "voice_id": "suhani",
+              "model": "bulbul:v3",
+              "language": "hi"
+            },
+            "stream": true,
+            "buffer_size": 150,
+            "audio_format": "wav"
+          },
+          "input": {
+            "provider": "vobiz",
+            "format": "wav"
+          },
+          "output": {
+            "provider": "vobiz",
+            "format": "wav"
+          },
+          "multilingual_config": {
+            "enabled": true,
+            "active_language": "hi",
+            "language_switch_trigger": "caller_requested",
+            "languages": {
+              "en": {
+                "transcriber": {
+                  "provider": "deepgram",
+                  "model": "nova-3",
+                  "language": "en",
+                  "stream": true,
+                  "endpointing": 250
+                },
+                "synthesizer": {
+                  "provider": "elevenlabs",
+                  "provider_config": {
+                    "voice": "Angelica",
+                    "voice_id": "IkSv4tkouLJ6kYsQA7XD",
+                    "model": "eleven_flash_v2_5"
+                  },
+                  "stream": true,
+                  "buffer_size": 150
+                }
+              },
+              "hi": {
+                "transcriber": {
+                  "provider": "sarvam",
+                  "model": "saaras:v4",
+                  "language": "hi",
+                  "stream": true,
+                  "endpointing": 400
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "voice_id": "suhani",
+                    "model": "bulbul:v3",
+                    "language": "hi"
+                  },
+                  "stream": true,
+                  "buffer_size": 150
+                },
+                "handoff_message": "ठीक है, मैं हिंदी में बात करता हूँ।"
+              },
+              "mr": {
+                "transcriber": {
+                  "provider": "sarvam",
+                  "model": "saaras:v4",
+                  "language": "mr",
+                  "stream": true,
+                  "endpointing": 400
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "voice_id": "suhani",
+                    "model": "bulbul:v3",
+                    "language": "mr"
+                  },
+                  "stream": true,
+                  "buffer_size": 150
+                },
+                "handoff_message": "ठीक आहे, मी मराठीत बोलते."
+              },
+              "ta": {
+                "transcriber": {
+                  "provider": "sarvam",
+                  "model": "saaras:v4",
+                  "language": "ta",
+                  "stream": true,
+                  "endpointing": 400
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "voice_id": "suhani",
+                    "model": "bulbul:v3",
+                    "language": "ta"
+                  },
+                  "stream": true,
+                  "buffer_size": 150
+                },
+                "handoff_message": "சரி, நான் தமிழில் பேசுகிறேன்."
+              },
+              "te": {
+                "transcriber": {
+                  "provider": "sarvam",
+                  "model": "saaras:v4",
+                  "language": "te",
+                  "stream": true,
+                  "endpointing": 400
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "voice_id": "suhani",
+                    "model": "bulbul:v3",
+                    "language": "te"
+                  },
+                  "stream": true,
+                  "buffer_size": 150
+                },
+                "handoff_message": "సరే, నేను తెలుగులో మాట్లాడతాను."
+              },
+              "kn": {
+                "transcriber": {
+                  "provider": "sarvam",
+                  "model": "saaras:v4",
+                  "language": "kn",
+                  "stream": true,
+                  "endpointing": 400
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "voice_id": "suhani",
+                    "model": "bulbul:v3",
+                    "language": "kn"
+                  },
+                  "stream": true,
+                  "buffer_size": 150
+                },
+                "handoff_message": "ಸರಿ, ನಾನು ಕನ್ನಡದಲ್ಲಿ ಮಾತನಾಡುತ್ತೇನೆ."
+              },
+              "bn": {
+                "transcriber": {
+                  "provider": "sarvam",
+                  "model": "saaras:v4",
+                  "language": "bn",
+                  "stream": true,
+                  "endpointing": 400
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "voice_id": "suhani",
+                    "model": "bulbul:v3",
+                    "language": "bn"
+                  },
+                  "stream": true,
+                  "buffer_size": 150
+                },
+                "handoff_message": "ঠিক আছে, আমি বাংলায় কথা বলছি।"
+              },
+              "gu": {
+                "transcriber": {
+                  "provider": "sarvam",
+                  "model": "saaras:v4",
+                  "language": "gu",
+                  "stream": true,
+                  "endpointing": 400
+                },
+                "synthesizer": {
+                  "provider": "sarvam",
+                  "provider_config": {
+                    "voice_id": "suhani",
+                    "model": "bulbul:v3",
+                    "language": "gu"
+                  },
+                  "stream": true,
+                  "buffer_size": 150
+                },
+                "handoff_message": "ઠીક છે, હું ગુજરાતીમાં વાત કરું છું."
+              }
+            }
+          }
+        },
+        "task_config": {
+          "hangup_after_silence": 10,
+          "hangup_after_LLMCall": true,
+          "call_cancellation_prompt": "The call is complete once the assistant has thanked the vendor and said goodbye, or the vendor has said they are not interested or it is a wrong number. End the call right after that.",
+          "call_terminate": 240
+        }
+      }
+    ]
+  },
+  "agent_prompts": {
+    "task_1": {
+      "system_prompt": "@file:prompts/vendor.md"
+    }
+  }
+}
